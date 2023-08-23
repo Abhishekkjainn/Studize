@@ -36,19 +36,21 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  sleek_circular_slider: ^1.1.0
-  syncfusion_flutter_gauges: ^1.0.0-beta
-  shared_preferences: ^0.5.12+4
+  sleek_circular_slider: ^2.0.1
+  syncfusion_flutter_gauges: ^22.1.34
+  shared_preferences: ^2.0.0
   toggle_switch: ^2.1.0
-  font_awesome_flutter: ^9.2.0
-  syncfusion_flutter_datepicker: ^19.3.45
+  font_awesome_flutter: ^10.5.0
+  syncfusion_flutter_datepicker: ^22.2.9
   percent_indicator: ^4.2.3
   change_app_package_name: ^1.1.0
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.7.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.8.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
   android: "launcher_icon"
