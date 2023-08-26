@@ -10,6 +10,7 @@ import 'package:studize/ui/biology.dart';
 import 'package:studize/ui/Todo.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studize/ui/LoginPageReference/signin_screen.dart';
 
 DateTime TodayDate= DateTime.now();
 
@@ -199,6 +200,18 @@ class _HomeScreenState extends State<HomeScreen> {
           PopupMenuButton(itemBuilder: (context){
             return [
               PopupMenuItem<int>(
+                value: 3,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Text("Logout", style: TextStyle(
+                      color: Colors.black
+                  ),),
+                ),
+              ),
+              PopupMenuItem<int>(
                 value: 2,
                 child: Container(
                   decoration: BoxDecoration(
@@ -251,7 +264,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           controller: scrollController,
           scrollDirection: Axis.vertical,
-          children: <Widget>[
+          children: <Widget>[   //start here
+//pomdoro clock ------- VEDANT
             Container(
               margin: EdgeInsets.all(screenHeight*0.005),
               height: screenHeight*0.5,
@@ -529,6 +543,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
+            // TILL HERE
+
             Container(
               margin: EdgeInsets.all(screenHeight*0.005),
               height: screenHeight*0.250,
@@ -836,6 +852,13 @@ class _HomeScreenState extends State<HomeScreen> {
       scrollController.animateTo(160,
           duration: Duration(seconds: 1), curve: Curves.easeIn);
     }
+    if (value == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SignInScreen()),
+      );
+    }
+
   }
 
 

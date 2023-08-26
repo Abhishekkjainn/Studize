@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:studize/ui/biohome.dart';
 import 'package:studize/ui/home.dart';
+import 'package:studize/ui/LoginPageReference/signin_screen.dart';
 DateTime selectedDate=DateTime(2024,04,15);
 DateTime todayDate = DateTime.now();
 int date = todayDate.day;
@@ -11,6 +13,8 @@ int year = todayDate.year;
 
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // Initialize Firebase
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
@@ -30,7 +34,7 @@ class MyApp extends StatelessWidget {
     } else if (options == 1) {
       initialScreen = HomeScreen();
     } else {
-      initialScreen = StartingPage();
+      initialScreen = SignInScreen();
     }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
