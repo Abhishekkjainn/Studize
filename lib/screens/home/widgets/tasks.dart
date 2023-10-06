@@ -5,24 +5,30 @@ import '../../../models/task.dart';
 class Tasks extends StatelessWidget {
   final tasksList = Task.generateTasks();
 
+  Tasks({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: GridView.builder(
         itemCount: tasksList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: screenWidth > 600 ? 4 : 2, // Adjust the number of columns based on screen width
+          crossAxisCount: screenWidth > 600
+              ? 4
+              : 2, // Adjust the number of columns based on screen width
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
         ),
-        itemBuilder: (context, index) =>
-        tasksList[index].isLast ? _buildAddTask() : _buildTask(context, tasksList[index]),
+        itemBuilder: (context, index) => tasksList[index].isLast
+            ? _buildAddTask()
+            : _buildTask(context, tasksList[index]),
       ),
     );
   }
+
 // problem
   Widget _buildAddTask() {
     return Center(
@@ -30,14 +36,14 @@ class Tasks extends StatelessWidget {
         onPressed: () {
           // Add task logic
         },
-        child: Text('Add Task'),
+        child: const Text('Add Task'),
       ),
     );
   }
 
   Widget _buildTask(BuildContext context, Task task) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: task.bgColor,
         borderRadius: BorderRadius.circular(20),
@@ -50,20 +56,22 @@ class Tasks extends StatelessWidget {
             width: 35,
             height: 35,
           ),
-          SizedBox(height: 5), // Adjusted the height
+          const SizedBox(height: 5), // Adjusted the height
           Text(
             task.title!,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 10), // Adjusted the height
+          const SizedBox(height: 10), // Adjusted the height
           Row(
             children: [
-              _buildTaskStatus(task.btnColor!, task.bgColor!, '${task.done} done', Colors.black),
-              SizedBox(width: 15),
-              _buildTaskStatus(Colors.black, task.bgColor!, '${task.left} left', Colors.white),
+              _buildTaskStatus(task.btnColor!, task.bgColor!,
+                  '${task.done} done', Colors.black),
+              const SizedBox(width: 15),
+              _buildTaskStatus(Colors.black, task.bgColor!, '${task.left} left',
+                  Colors.white),
             ],
           ),
         ],
@@ -71,9 +79,11 @@ class Tasks extends StatelessWidget {
     );
   }
 
-  Widget _buildTaskStatus(Color bgColor, Color txColor, String text, Color textColor) {
+  Widget _buildTaskStatus(
+      Color bgColor, Color txColor, String text, Color textColor) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5), // Adjusted vertical padding
+      padding: const EdgeInsets.symmetric(
+          horizontal: 10, vertical: 5), // Adjusted vertical padding
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(12),

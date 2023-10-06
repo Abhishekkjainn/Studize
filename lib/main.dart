@@ -1,25 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studize/firebase_options.dart';
 import 'package:studize/screens/home/homee.dart';
-import 'package:studize/ui/home.dart';
+import 'package:studize/styles.dart';
 import 'package:studize/ui/LoginPageReference/signin_screen.dart';
-DateTime selectedDate=DateTime(2024,04,15);
+
+DateTime selectedDate = DateTime(2024, 04, 15);
 DateTime todayDate = DateTime.now();
 int date = todayDate.day;
 int month = todayDate.month;
 int year = todayDate.year;
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  ); // Initialize Firebase
+      options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
@@ -39,14 +36,14 @@ class MyApp extends StatelessWidget {
     } else if (options == 1) {
       initialScreen = HomePage();
     } else {
-      initialScreen = SignInScreen();
+      initialScreen = const SignInScreen();
     }
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent)
-    );
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: initialScreen ,
+      theme: mainAppTheme,
+      home: initialScreen,
     );
   }
 }
@@ -115,7 +112,7 @@ class _StartingPageState extends State<StartingPage> {
           "Studize",
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: screenWidth*0.07,
+            fontSize: screenWidth * 0.07,
             fontStyle: FontStyle.normal,
             color: Colors.black,
           ),
@@ -126,15 +123,15 @@ class _StartingPageState extends State<StartingPage> {
       body: Container(
         alignment: Alignment.center,
         color: Colors.black,
-        padding: EdgeInsets.all(screenWidth*0.0125),
+        padding: EdgeInsets.all(screenWidth * 0.0125),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               children: [
                 Container(
-                  width: screenWidth*0.6,
-                  height: screenHeight*0.04,
+                  width: screenWidth * 0.6,
+                  height: screenHeight * 0.04,
                   margin: EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
@@ -145,7 +142,7 @@ class _StartingPageState extends State<StartingPage> {
                       "Select Exam Type",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: screenWidth*0.045,
+                        fontSize: screenWidth * 0.045,
                         fontStyle: FontStyle.normal,
                         color: Colors.black,
                       ),
@@ -167,7 +164,7 @@ class _StartingPageState extends State<StartingPage> {
                           'JEE',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: screenWidth*0.0296,
+                            fontSize: screenWidth * 0.0296,
                             color: Colors.black,
                           ),
                         ),
@@ -177,7 +174,6 @@ class _StartingPageState extends State<StartingPage> {
                       ),
                       ElevatedButton(
                         onPressed: () => _updateOptions(1),
-
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                             options == 1 ? Colors.green : Colors.grey,
@@ -187,7 +183,7 @@ class _StartingPageState extends State<StartingPage> {
                           'NEET',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: screenWidth*0.0296,
+                            fontSize: screenWidth * 0.0296,
                             color: Colors.black,
                           ),
                         ),
@@ -197,29 +193,28 @@ class _StartingPageState extends State<StartingPage> {
                 ),
               ],
             ),
-            Padding(padding: EdgeInsets.all(screenWidth*0.044)),
-            SizedBox(height: screenHeight*0.02),
+            Padding(padding: EdgeInsets.all(screenWidth * 0.044)),
+            SizedBox(height: screenHeight * 0.02),
             ElevatedButton(
               onPressed: proceedState,
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
                   Colors.white60,
                 ),
-
               ),
               child: Container(
-                width:screenWidth*0.50,
-                height: screenHeight*0.050,
+                width: screenWidth * 0.50,
+                height: screenHeight * 0.050,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color:Colors.green,
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.green,
                 ),
                 child: Center(
                   child: Text(
                     "Click Here To Proceed",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: screenWidth*0.035,
+                      fontSize: screenWidth * 0.035,
                       fontStyle: FontStyle.normal,
                       color: Colors.black,
                     ),
