@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:studize/ui/LoginPageReference/reusable_widget.dart';
-import 'package:studize/main.dart';
 import 'package:flutter/material.dart';
+import 'package:studize/main.dart';
+import 'package:studize/widgets/reusable_widgets.dart';
+import 'dart:developer' as dartdev show log;
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -77,13 +78,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .then((value) {
-                    print("Created New Account");
+                    dartdev.log("Created New Account");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const StartingPage()));
                   }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
+                    dartdev.log("Error ${error.toString()}");
                   });
                 })
               ],

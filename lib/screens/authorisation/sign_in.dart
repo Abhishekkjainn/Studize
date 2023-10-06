@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:studize/main.dart';
-import 'package:studize/ui/LoginPageReference/reusable_widget.dart';
-import 'package:studize/ui/LoginPageReference/reset_password.dart';
-import 'package:studize/ui/LoginPageReference/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:studize/main.dart';
+import 'package:studize/screens/authorisation/reset_password.dart';
+import 'package:studize/widgets/reusable_widgets.dart';
+import 'dart:developer' as dartdev show log;
+
+import 'sign_up.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -18,17 +20,9 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-            // color: Colors.black,
-            //     gradient: LinearGradient(colors: [
-            //   hexStringToColor("CB2B93"),
-            //   hexStringToColor("9546C4"),
-            //   hexStringToColor("5E61F4")
-            // ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
-            ),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -60,7 +54,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         MaterialPageRoute(
                             builder: (context) => const StartingPage()));
                   }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
+                    dartdev.log("Error ${error.toString()}");
                   });
                 }),
                 signUpOption()

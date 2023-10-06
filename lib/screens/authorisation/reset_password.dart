@@ -1,16 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:studize/ui/LoginPageReference/reusable_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:studize/widgets/reusable_widgets.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
 
   @override
-  _ResetPasswordState createState() => _ResetPasswordState();
+  State<ResetPassword> createState() => _ResetPasswordState();
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,20 +23,12 @@ class _ResetPasswordState extends State<ResetPassword> {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
+      body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            color: Colors.black
-          //     gradient: LinearGradient(colors: [
-          //   hexStringToColor("CB2B93"),
-          //   hexStringToColor("9546C4"),
-          //   hexStringToColor("5E61F4")
-          // ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
-          ),
           child: SingleChildScrollView(
               child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 120, 20, 0),
             child: Column(
               children: <Widget>[
                 const SizedBox(

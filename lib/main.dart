@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studize/firebase_options.dart';
-import 'package:studize/screens/home/homee.dart';
+import 'package:studize/screens/authorisation/sign_in.dart';
 import 'package:studize/screens/main_container.dart';
 import 'package:studize/styles.dart';
-import 'package:studize/ui/LoginPageReference/signin_screen.dart';
 
 DateTime selectedDate = DateTime(2024, 04, 15);
 DateTime todayDate = DateTime.now();
@@ -133,7 +132,7 @@ class _StartingPageState extends State<StartingPage> {
                 Container(
                   width: screenWidth * 0.6,
                   height: screenHeight * 0.04,
-                  margin: EdgeInsets.all(5.0),
+                  margin: const EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
                     color: Colors.green,
@@ -150,47 +149,45 @@ class _StartingPageState extends State<StartingPage> {
                     ),
                   ),
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () => _updateOptions(0),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            options == 0 ? Colors.green : Colors.grey,
-                          ),
-                        ),
-                        child: Text(
-                          'JEE',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: screenWidth * 0.0296,
-                            color: Colors.black,
-                          ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => _updateOptions(0),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          options == 0 ? Colors.green : Colors.grey,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
+                      child: Text(
+                        'JEE',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.0296,
+                          color: Colors.black,
+                        ),
                       ),
-                      ElevatedButton(
-                        onPressed: () => _updateOptions(1),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            options == 1 ? Colors.green : Colors.grey,
-                          ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => _updateOptions(1),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          options == 1 ? Colors.green : Colors.grey,
                         ),
-                        child: Text(
-                          'NEET',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: screenWidth * 0.0296,
-                            color: Colors.black,
-                          ),
+                      ),
+                      child: Text(
+                        'NEET',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.0296,
+                          color: Colors.black,
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),
@@ -247,7 +244,7 @@ class _StartingPageState extends State<StartingPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Invalid Request'),
-            content: SingleChildScrollView(
+            content: const SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   Text('Please select any one exam type.'),
