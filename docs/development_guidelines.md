@@ -33,6 +33,25 @@ Note : `print()` may be used temporarily for testing locally but should not be p
 
 Use them wherever possible. `const` is needed for optimisation and `final` avoids unintentional overwriting of variables . Usually VS Code will suggest you to add these keywords where relevant.
 
+### 2.3 Naming conventions
+
+Read the full guideline [here](https://dart.dev/effective-dart/style)
+
+Summary:
+
+- All variable, constant and enum names in `camelCase`
+- All class names in `PascalCase`
+- All file names in `snake_case`
+- In general, avoid `SCREAMING_CAPS`
+- Use a leading underscore, eg `_someVar` only in private variables (that are not expected to be used outside the file they are defined in)
+- Use an underscore for unused callback parameters. Example:
+
+```dart
+futureOfVoid.then((_) {
+  print('Operation complete.');
+});
+```
+
 ## 3. Project folder structure
 
 ```
@@ -44,23 +63,17 @@ lib
 ├── main.dart
 ├── screens
 │   ├── authorisation
-│   │   ├── reset_password.dart
 │   │   ├── sign_in.dart
 │   │   └── sign_up.dart
-│   ├── home
-│   │   └── homee.dart
 │   ├── main_container.dart
-│   │── main_tasks.dart
 │   └── ...
 ├── styles.dart
 └── widgets
     ├── app_bar.dart
     ├── reusable_widgets.dart
-    ├── tasks.dart
     └── ...
 ```
 
 - All constant definitions that are relevant outside one specific file must be declared in files inside the `/lib/constants` directory or inside it's sub-directoriers
 - All UI Screens / Views go into the `/lib/screens` directory, or it's sub-directories
 - All reusable widgets go inside the `/lib/widgets` directory, or it's sub-directories.
-
