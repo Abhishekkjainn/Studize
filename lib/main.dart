@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studize/firebase_options.dart';
 import 'package:studize/screens/home/homee.dart';
+import 'package:studize/screens/main_container.dart';
 import 'package:studize/styles.dart';
 import 'package:studize/ui/LoginPageReference/signin_screen.dart';
 
@@ -32,9 +33,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget initialScreen;
     if (options == 0) {
-      initialScreen = HomePage();
+      initialScreen = const MainContainer();
     } else if (options == 1) {
-      initialScreen = HomePage();
+      initialScreen = const MainContainer();
     } else {
       initialScreen = const SignInScreen();
     }
@@ -232,12 +233,12 @@ class _StartingPageState extends State<StartingPage> {
     if (options == 0) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const MainContainer()),
       );
     } else if (options == 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const MainContainer()),
       );
     } else {
       showDialog(

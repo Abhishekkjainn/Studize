@@ -1,48 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:studize/screens/home/widgets/tasks.dart';
-import 'package:studize/widgets/app_bar.dart';
 
-class HomePage extends StatelessWidget {
+class MainTasksView extends StatelessWidget {
+  const MainTasksView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: AppBar().preferredSize, // Use the preferredSize property
-        child: const MainAppBar(), // Call the custom method here
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(15),
-            child: const Text(
-              'Tasks',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(15),
+          child: const Text(
+            'Tasks',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          Expanded(
-            child: Tasks(),
-          )
-        ],
-      ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
         ),
-        elevation: 0,
-        // backgroundColor: Colors.black,
-        onPressed: () {},
-        child: const Icon(
-          Icons.add,
-          size: 35,
-        ),
-      ),
+        Expanded(
+          child: Tasks(),
+        )
+      ],
     );
   }
 

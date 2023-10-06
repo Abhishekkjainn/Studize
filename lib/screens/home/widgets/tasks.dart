@@ -1,6 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:studize/constants/colors.dart';
 
-import '../../../models/task.dart';
+class Task {
+  String? iconAsset; // Asset path for the custom icon
+  String? title;
+  Color? bgColor;
+  Color? iconColor;
+  Color? btnColor;
+  num? left;
+  num? done;
+  bool isLast;
+
+  Task({
+    this.iconAsset,
+    this.title,
+    this.bgColor,
+    this.iconColor,
+    this.btnColor,
+    this.left,
+    this.done,
+    this.isLast = false,
+  });
+
+  static List<Task> generateTasks() {
+    const commonIconAsset = 'assets/icon/physics.png';
+    const List<String> categories = ['Physics', 'Chemistry', 'Maths'];
+    return List.generate(
+      categories.length,
+      (index) => Task(
+        title: categories[index],
+        iconAsset: commonIconAsset,
+        bgColor: taskColorsBG[index],
+        btnColor: taskColorsBtn[index],
+        left: 3,
+        done: 1,
+      ),
+    );
+  }
+}
 
 class Tasks extends StatelessWidget {
   final tasksList = Task.generateTasks();
@@ -16,8 +53,8 @@ class Tasks extends StatelessWidget {
       child: GridView.builder(
         itemCount: tasksList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: screenWidth > 600
-              ? 4
+          crossAxisCount: screenWidth > 650
+              ? 3
               : 2, // Adjust the number of columns based on screen width
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,

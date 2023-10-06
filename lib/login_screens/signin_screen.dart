@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -9,12 +10,6 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-
-        )
-      )
-    );
+    return Scaffold(body: Container(decoration: const BoxDecoration()));
   }
 }

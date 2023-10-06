@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MainAppBar extends StatefulWidget {
-  const MainAppBar({super.key});
+class MainAppBar extends AppBar {
+  MainAppBar({super.key});
 
   @override
   State<MainAppBar> createState() => _MainAppBarState();
