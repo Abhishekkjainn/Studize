@@ -1,6 +1,8 @@
+# Development Guidelines 🖥️
+
 We will try and stick to the following rules for maximum productivity
 
-### 1. Use VS Code for development
+## 1. Use VS Code for development
 
 1. VS Code is the recommended editor by Flutter
 2. Flutter provides officially supported, regularly updated plugins for VS Code
@@ -9,11 +11,9 @@ We will try and stick to the following rules for maximum productivity
 
 **Extensions** : Make sure you have the official *Dart* and *Flutter* plugins installed.
 
-### 2. Keep zero errors and zero warnings
+## 2. Keep zero errors and zero warnings
 
-This essentially sums up points 2.1 and 2.2.
-
-#### 2.1 Use `dartdev.log()` instead of `print()`
+### 2.1 Use `dartdev.log()` instead of `print()`
 
 `print('something')` will also print in release builds of the application which may expose sensitive information of the user during production use. Instead, we will use  `dartdev.log('something')`. Now this will usually not work normally. You will need to import a library using the following command :
 
@@ -29,11 +29,11 @@ Note:
 
 Note : `print()` may be used temporarily for testing locally but should not be pushed to git remote.
 
-#### 2.2 `const` and `final` keywords
+### 2.2 `const` and `final` keywords
 
 Use them wherever possible. `const` is needed for optimisation and `final` avoids unintentional overwriting of variables . Usually VS Code will suggest you to add these keywords where relevant.
 
-### 3. Project folder structure
+## 3. Project folder structure
 
 ```
 lib
