@@ -11,7 +11,7 @@ We will try and stick to the following rules for maximum productivity
 
 ### 2. Keep zero errors and zero warnings
 
-This essentially sums of all of the following points
+This essentially sums up points 2.1 and 2.2.
 
 #### 2.1 Use `dartdev.log()` instead of `print()`
 
