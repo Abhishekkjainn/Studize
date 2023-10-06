@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>459033584410-t4cs8drm1mtp6v4qjncpf75iflgr5s1c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.459033584410-t4cs8drm1mtp6v4qjncpf75iflgr5s1c</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>459033584410-4if81iok0rjejsa1ccl972p6csr0i7ap.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBYIgzyyG25Yt1auvUpm19Z-k-nwWKg40Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>459033584410</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.InnovAppWorks.studize</string>
+	<key>PROJECT_ID</key>
+	<string>studize-3b737</string>
+	<key>STORAGE_BUCKET</key>
+	<string>studize-3b737.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:459033584410:ios:738cc4db5639ca334a82a3</string>
+</dict>
+</plist>
