@@ -1,5 +1,5 @@
 # studize
 
-### Developer Guidelines 🖥️
+### Development Guidelines 🖥️
 
-[read here](docs/developer_guidelines.md)
+[read here](docs/development_guidelines.md)
