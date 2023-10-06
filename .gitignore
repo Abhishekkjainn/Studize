@@ -42,3 +42,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase API keys. Run `flutterfire configure` to re-generate this file
+/android/app/google-services.json
+

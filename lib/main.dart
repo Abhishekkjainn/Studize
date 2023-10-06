@@ -2,7 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studize/firebase_options.dart';
+import 'package:studize/screens/home/homee.dart';
 import 'package:studize/ui/home.dart';
 import 'package:studize/ui/LoginPageReference/signin_screen.dart';
 DateTime selectedDate=DateTime(2024,04,15);
@@ -14,7 +17,9 @@ int year = todayDate.year;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  ); // Initialize Firebase
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
@@ -30,12 +35,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget initialScreen;
     if (options == 0) {
-      initialScreen = HomeScreen();
+      initialScreen = HomePage();
     } else if (options == 1) {
-      initialScreen = HomeScreen();
+      initialScreen = HomePage();
     } else {
       initialScreen = SignInScreen();
     }
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent)
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: initialScreen ,
@@ -229,12 +237,12 @@ class _StartingPageState extends State<StartingPage> {
     if (options == 0) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } else if (options == 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } else {
       showDialog(
