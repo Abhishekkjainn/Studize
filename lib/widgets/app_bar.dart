@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studize/constants/Globals.dart';
 
 class MainAppBar extends AppBar {
   MainAppBar({super.key});
@@ -25,7 +26,7 @@ class _MainAppBarState extends State<MainAppBar> {
           ),
           const SizedBox(width: 10),
           Text(
-            'Hi, Username',
+            'Hi, $username',
             style: Theme.of(context).textTheme.titleLarge,
             // style: TextStyle(
             //   color: Colors.black,
