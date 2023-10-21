@@ -43,6 +43,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: mainAppTheme,
+      darkTheme: mainAppThemeDark,
+      themeMode: ThemeMode.system,
       home: initialScreen,
     );
   }
