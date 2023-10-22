@@ -44,42 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB8FC7LTuDYHIsbq2dYSGmw5Maha7nw09Y',
-    appId: '1:459033584410:web:f7b194b19ba3df824a82a3',
-    messagingSenderId: '459033584410',
-    projectId: 'studize-3b737',
-    authDomain: 'studize-3b737.firebaseapp.com',
-    storageBucket: 'studize-3b737.appspot.com',
-    measurementId: 'G-8JHH44T72X',
+    apiKey: 'AIzaSyBP9Eism_u_4PbUjO-AYohf8M7rAu8ZpCU',
+    appId: '1:201442277639:web:2f853736d1a8358b07eda2',
+    messagingSenderId: '201442277639',
+    projectId: 'studize-firebase',
+    authDomain: 'studize-firebase.firebaseapp.com',
+    storageBucket: 'studize-firebase.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB9r4akT-Bfh4fCDpEtpUc5gCJsgln_JCE',
-    appId: '1:459033584410:android:8344be5861813c634a82a3',
-    messagingSenderId: '459033584410',
-    projectId: 'studize-3b737',
-    storageBucket: 'studize-3b737.appspot.com',
+    apiKey: 'AIzaSyDxW-pn8CmCId_LD3FjPBX_k1NWm0vylaI',
+    appId: '1:201442277639:android:d396523e12e5ef3b07eda2',
+    messagingSenderId: '201442277639',
+    projectId: 'studize-firebase',
+    storageBucket: 'studize-firebase.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBYIgzyyG25Yt1auvUpm19Z-k-nwWKg40Y',
-    appId: '1:459033584410:ios:738cc4db5639ca334a82a3',
-    messagingSenderId: '459033584410',
-    projectId: 'studize-3b737',
-    storageBucket: 'studize-3b737.appspot.com',
-    androidClientId: '459033584410-4if81iok0rjejsa1ccl972p6csr0i7ap.apps.googleusercontent.com',
-    iosClientId: '459033584410-t4cs8drm1mtp6v4qjncpf75iflgr5s1c.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCkVteB_2rhUFtOAajrInQwQC9_C2fmEPE',
+    appId: '1:201442277639:ios:9f66bc5abd912ad007eda2',
+    messagingSenderId: '201442277639',
+    projectId: 'studize-firebase',
+    storageBucket: 'studize-firebase.appspot.com',
     iosBundleId: 'com.InnovAppWorks.studize',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBYIgzyyG25Yt1auvUpm19Z-k-nwWKg40Y',
-    appId: '1:459033584410:ios:738cc4db5639ca334a82a3',
-    messagingSenderId: '459033584410',
-    projectId: 'studize-3b737',
-    storageBucket: 'studize-3b737.appspot.com',
-    androidClientId: '459033584410-4if81iok0rjejsa1ccl972p6csr0i7ap.apps.googleusercontent.com',
-    iosClientId: '459033584410-t4cs8drm1mtp6v4qjncpf75iflgr5s1c.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCkVteB_2rhUFtOAajrInQwQC9_C2fmEPE',
+    appId: '1:201442277639:ios:9f66bc5abd912ad007eda2',
+    messagingSenderId: '201442277639',
+    projectId: 'studize-firebase',
+    storageBucket: 'studize-firebase.appspot.com',
     iosBundleId: 'com.InnovAppWorks.studize',
   );
 }

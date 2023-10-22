@@ -1,44 +1,26 @@
 {
   "project_info": {
-    "project_number": "1041401962371",
-    "project_id": "studize-login",
-    "storage_bucket": "studize-login.appspot.com"
+    "project_number": "201442277639",
+    "project_id": "studize-firebase",
+    "storage_bucket": "studize-firebase.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1041401962371:android:406341496fa3bdac2960b6",
+        "mobilesdk_app_id": "1:201442277639:android:d396523e12e5ef3b07eda2",
         "android_client_info": {
           "package_name": "com.InnovAppWorks.Studize"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1041401962371-5do5m6mqbtr9g3srtelj6tsja1lvd63e.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.InnovAppWorks.Studize",
-            "certificate_hash": "d6b1ace6ad20e0e9633a15b706384f6cb7a1e9b0"
-          }
-        },
-        {
-          "client_id": "1041401962371-n7smu7745d2gd8uis58kesv8hst94t73.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBs0mRpsUZjV8_0EvbJbFmrE15gyEODO-g"
+          "current_key": "AIzaSyDxW-pn8CmCId_LD3FjPBX_k1NWm0vylaI"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1041401962371-n7smu7745d2gd8uis58kesv8hst94t73.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
