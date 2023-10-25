@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studize/screens/main_info_view.dart';
 import 'package:studize/screens/main_tasks.dart';
 import 'package:studize/widgets/app_bar.dart';
 
@@ -19,7 +20,7 @@ class _MainContainerState extends State<MainContainer> {
         page = const MainTasksView();
         break;
       case 1:
-        page = const Placeholder();
+        page = const MainInfoView();
         break;
       case 2:
         page = const Placeholder();
@@ -38,13 +39,13 @@ class _MainContainerState extends State<MainContainer> {
     const navDestinationLabels = ['Home', 'Info', 'AI', 'Mentor'];
     const navDestinationIcons = [
       Icons.home_outlined,
-      Icons.favorite_border,
+      Icons.info_outline,
       Icons.chat_bubble_outline,
       Icons.person_2_outlined,
     ];
     const navDestinationIconsSelected = [
       Icons.home,
-      Icons.favorite,
+      Icons.info,
       Icons.chat_bubble,
       Icons.person,
     ];

@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:459033584410:ios:738cc4db5639ca334a82a3",
-  "FIREBASE_PROJECT_ID": "studize-3b737",
-  "GCM_SENDER_ID": "459033584410"
+  "GOOGLE_APP_ID": "1:1041401962371:ios:d0b1b8f37667d8072960b6",
+  "FIREBASE_PROJECT_ID": "studize-login",
+  "GCM_SENDER_ID": "1041401962371"
 }
