@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studize/screens/main_info_view.dart';
+import 'package:studize/screens/aiMentor/main.dart';
 import 'package:studize/screens/main_tasks.dart';
 import 'package:studize/widgets/app_bar.dart';
 
@@ -23,7 +24,7 @@ class _MainContainerState extends State<MainContainer> {
         page = const MainInfoView();
         break;
       case 2:
-        page = const Placeholder();
+        page = const gpt_main();
         break;
       case 3:
         page = const Placeholder();
