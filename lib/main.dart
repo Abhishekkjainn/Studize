@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
     } else if (options == 1) {
       initialScreen = const MainContainer();
     } else {
-      initialScreen = const SignInScreen();
+      // initialScreen = const SignInScreen();
+      initialScreen=const MainContainer();
     }
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
