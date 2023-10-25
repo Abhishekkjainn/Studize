@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "1041401962371",
-    "project_id": "studize-login",
-    "storage_bucket": "studize-login.appspot.com"
+    "project_number": "711369969235",
+    "project_id": "firebase-test-8752845",
+    "storage_bucket": "firebase-test-8752845.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1041401962371:android:406341496fa3bdac2960b6",
+        "mobilesdk_app_id": "1:711369969235:android:f0040db607ae4d81d3c0a6",
         "android_client_info": {
           "package_name": "com.InnovAppWorks.Studize"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1041401962371-5do5m6mqbtr9g3srtelj6tsja1lvd63e.apps.googleusercontent.com",
+          "client_id": "711369969235-k343lpdp05deu5rs1pn3pm7dk79jd0f0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.InnovAppWorks.Studize",
@@ -22,21 +22,28 @@
           }
         },
         {
-          "client_id": "1041401962371-n7smu7745d2gd8uis58kesv8hst94t73.apps.googleusercontent.com",
+          "client_id": "711369969235-m16np4r1qoc02g3o9p2iuadrb9hhvaa2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBs0mRpsUZjV8_0EvbJbFmrE15gyEODO-g"
+          "current_key": "AIzaSyA0MVxfhwDA1HbGPnxsou6gBlpOD9LFAIM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1041401962371-n7smu7745d2gd8uis58kesv8hst94t73.apps.googleusercontent.com",
+              "client_id": "711369969235-m16np4r1qoc02g3o9p2iuadrb9hhvaa2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "711369969235-17epmuh3d4f43crbj5q2ibm0n1sldou0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.InnovAppWorks.studize"
+              }
             }
           ]
         }
