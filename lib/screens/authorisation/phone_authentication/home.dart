@@ -6,34 +6,26 @@ import 'package:studize/constants/colors.dart';
 import 'package:studize/screens/authorisation/phone_authentication/NumericPad.dart';
 import 'package:studize/screens/authorisation/phone_authentication/done.dart';
 
-
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
-
   @override
   State<Home> createState() => _HomeState();
-
-
 }
 
 class _HomeState extends State<Home> {
-
-
   TextEditingController _codecontroller = new TextEditingController();
   String phoneNumber = "", data = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String smscode = "";
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsFlutterBinding.ensureInitialized();
-    Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
-
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   // Firebase.initializeApp(
+  //   // options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
+  // }
 
   _signInWithMobileNumber() async {
     UserCredential _credential;
@@ -55,41 +47,41 @@ class _HomeState extends State<Home> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => AlertDialog(
-                  title: Text("Enter OTP"),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextField(
-                        controller: _codecontroller,
-                      )
-                    ],
-                  ),
-                  actions: [
-                    ElevatedButton(
-                        onPressed: () {
-                          FirebaseAuth auth = FirebaseAuth.instance;
-                          smscode = _codecontroller.text;
-                          PhoneAuthCredential _credential =
-                          PhoneAuthProvider.credential(
-                              verificationId: verificationId,
-                              smsCode: smscode);
-                          auth
-                              .signInWithCredential(_credential)
-                              .then((result) {
-                            if (result != null) {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Done()));
-                            }
-                          }).catchError((e) {
-                            print(e);
-                          });
-                        },
-                        child: Text("Done"))
-                  ],
-                ));
+                      title: Text("Enter OTP"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextField(
+                            controller: _codecontroller,
+                          )
+                        ],
+                      ),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: () {
+                              FirebaseAuth auth = FirebaseAuth.instance;
+                              smscode = _codecontroller.text;
+                              PhoneAuthCredential _credential =
+                                  PhoneAuthProvider.credential(
+                                      verificationId: verificationId,
+                                      smsCode: smscode);
+                              auth
+                                  .signInWithCredential(_credential)
+                                  .then((result) {
+                                if (result != null) {
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Done()));
+                                }
+                              }).catchError((e) {
+                                print(e);
+                              });
+                            },
+                            child: Text("Done"))
+                      ],
+                    ));
           },
           codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = verificationId;
@@ -97,7 +89,6 @@ class _HomeState extends State<Home> {
           timeout: Duration(seconds: 45));
     } catch (e) {}
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +115,7 @@ class _HomeState extends State<Home> {
                     ),
                     Padding(
                       padding:
-                      EdgeInsets.symmetric(vertical: 14, horizontal: 64),
+                          EdgeInsets.symmetric(vertical: 14, horizontal: 64),
                       child: Text(
                         "You'll receive a 6 digit code to verify next.",
                       ),
@@ -165,10 +156,9 @@ class _HomeState extends State<Home> {
                           Text(
                             phoneNumber,
                             style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black
-                            ),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
                         ],
                       ),
@@ -185,9 +175,8 @@ class _HomeState extends State<Home> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.blueAccent,
-                            borderRadius: BorderRadius.circular(25)
-                          ),
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(25)),
                           child: Center(
                             child: Text(
                               "Continue",

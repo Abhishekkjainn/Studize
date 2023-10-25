@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studize/screens/main_info_view.dart';
+import 'package:studize/screens/info/main_info_view.dart';
 import 'package:studize/screens/aiMentor/main.dart';
 import 'package:studize/screens/main_tasks.dart';
 import 'package:studize/widgets/app_bar.dart';
