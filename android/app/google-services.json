@@ -7,12 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:201442277639:android:d396523e12e5ef3b07eda2",
+        "mobilesdk_app_id": "1:1041401962371:android:1a0626eac48302812960b6",
         "android_client_info": {
           "package_name": "com.InnovAppWorks.Studize"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1041401962371-e3eco7ue1q425lv8h56b8mame1dglait.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDxW-pn8CmCId_LD3FjPBX_k1NWm0vylaI"
@@ -20,7 +25,49 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041401962371-e3eco7ue1q425lv8h56b8mame1dglait.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041401962371:android:406341496fa3bdac2960b6",
+        "android_client_info": {
+          "package_name": "com.InnovAppWorks.studize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041401962371-5do5m6mqbtr9g3srtelj6tsja1lvd63e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.InnovAppWorks.studize",
+            "certificate_hash": "d6b1ace6ad20e0e9633a15b706384f6cb7a1e9b0"
+          }
+        },
+        {
+          "client_id": "1041401962371-e3eco7ue1q425lv8h56b8mame1dglait.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs0mRpsUZjV8_0EvbJbFmrE15gyEODO-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041401962371-e3eco7ue1q425lv8h56b8mame1dglait.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
