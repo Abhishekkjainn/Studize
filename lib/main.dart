@@ -16,8 +16,8 @@ int year = todayDate.year;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
   runApp(MyApp(options: options));
@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
     } else if (options == 1) {
       initialScreen = const MainContainer();
     } else {
-      // initialScreen = const SignInScreen();
-      initialScreen = const MainContainer();
+       initialScreen = const SignInScreen();
+      // initialScreen = const MainContainer();
     }
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
