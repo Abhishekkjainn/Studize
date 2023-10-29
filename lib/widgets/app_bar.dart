@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studize/constants/Globals.dart';
+import 'package:studize/main.dart';
+import 'package:studize/screens/authorisation/sign_in.dart';
 
 class MainAppBar extends AppBar {
   MainAppBar({super.key});
@@ -36,12 +39,60 @@ class _MainAppBarState extends State<MainAppBar> {
           ),
         ],
       ),
-      actions: const [
-        Icon(
-          Icons.more_vert,
-          // color: Colors.black,
-          size: 40,
-        )
+      // actions: const [
+      //   Icon(
+      //     Icons.more_vert,
+      //     // color: Colors.black,
+      //     size: 40,
+      //   )
+      // ],
+      actions: [
+        PopupMenuButton(
+          onSelected: (value) {
+            if (value == 'Edit Profile') {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const StartingPage()));
+              // Perform logout logic here
+            }
+          },
+          icon: const Icon(
+            Icons.edit,
+            size: 40,
+          ), // Three dots icon
+          itemBuilder: (BuildContext context) {
+            return [
+              const PopupMenuItem(
+                value: 'Edit Profile',
+                child: Text('Edit Profile'),
+              ),
+              // You can add more items to the menu if needed
+            ];
+          },
+        ),
+        PopupMenuButton(
+          onSelected: (value) {
+            if (value == 'logout') {
+              auth.signOut();
+              isLogin=false;
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SignInScreen()));
+              // Perform logout logic here
+            }
+          },
+          icon: const Icon(
+            Icons.more_vert,
+            size: 40,
+          ), // Three dots icon
+          itemBuilder: (BuildContext context) {
+            return [
+              const PopupMenuItem(
+                value: 'logout',
+                child: Text('Logout'),
+              ),
+              // You can add more items to the menu if needed
+            ];
+          },
+        ),
       ],
     );
   }

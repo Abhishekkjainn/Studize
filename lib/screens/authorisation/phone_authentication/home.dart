@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:studize/firebase_options.dart';
 import 'package:studize/constants/colors.dart';
+import 'package:studize/main.dart';
 import 'package:studize/screens/authorisation/phone_authentication/NumericPad.dart';
-import 'package:studize/screens/authorisation/phone_authentication/done.dart';
 
 
 
@@ -21,7 +21,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
 
-  TextEditingController _codecontroller = new TextEditingController();
+  final TextEditingController _codecontroller = new TextEditingController();
   String phoneNumber = "", data = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String smscode = "";
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
           verificationCompleted: (PhoneAuthCredential authCredential) async {
             await _auth.signInWithCredential(authCredential).then((value) {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Done()));
+                  context, MaterialPageRoute(builder: (context) => const StartingPage()));
             });
           },
           verificationFailed: ((error) {
@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => AlertDialog(
-                  title: Text("Enter OTP"),
+                  title: const Text("Enter OTP"),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -81,20 +81,20 @@ class _HomeState extends State<Home> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Done()));
+                                      builder: (context) => const StartingPage()));
                             }
                           }).catchError((e) {
                             print(e);
                           });
                         },
-                        child: Text("Done"))
+                        child: const Text("Done"))
                   ],
                 ));
           },
           codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = verificationId;
           },
-          timeout: Duration(seconds: 45));
+          timeout: const Duration(seconds: 45));
     } catch (e) {}
   }
 
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Continue with phone",
         ),
         elevation: 0,
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                       height: 130,
                       child: Image.asset('assets/icon/phoneAuth.png'),
                     ),
-                    Padding(
+                    const Padding(
                       padding:
                       EdgeInsets.symmetric(vertical: 14, horizontal: 64),
                       child: Text(
@@ -135,14 +135,14 @@ class _HomeState extends State<Home> {
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.13,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(25),
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -151,7 +151,7 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "Enter your phone",
                             style: TextStyle(
                               fontSize: 14,
@@ -159,12 +159,12 @@ class _HomeState extends State<Home> {
                               color: Colors.grey,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 2,
                           ),
                           Text(
                             phoneNumber,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               color: Colors.black
@@ -188,7 +188,7 @@ class _HomeState extends State<Home> {
                             color: Colors.blueAccent,
                             borderRadius: BorderRadius.circular(25)
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               "Continue",
                             ),
