@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studize/firebase_options.dart';
-import 'package:studize/screens/authorisation/sign_in.dart';
 import 'package:studize/screens/main_container.dart';
+import 'package:studize/services/tasks/tasks_init_functions.dart';
 import 'package:studize/styles.dart';
 
 DateTime selectedDate = DateTime(2024, 04, 15);
@@ -17,6 +17,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
+  await initializeSujbects(targetCourse: 'JEE');
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
       initialScreen = const MainContainer();
     } else {
       // initialScreen = const SignInScreen();
-      initialScreen=const MainContainer();
+      initialScreen = const MainContainer();
     }
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));

@@ -20,7 +20,7 @@ class MainTasksView extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Tasks(),
+          child: SubjectsGrid(),
         )
       ],
     );

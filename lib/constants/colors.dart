@@ -12,7 +12,7 @@ const Color kBlueLight = Color(0xFFEDF4FE);
 const Color kBlue = Color(0xFFE1EDFC);
 const Color kBlueDark = Color(0xFFC0D3F8);
 
-const Map<String, Color> darkColors = {
+const Map<String, Color> boldColors = {
   'red': Color.fromARGB(255, 255, 0, 0),
   'yellow': Color.fromARGB(63, 200, 255, 0),
   'blue': Color.fromARGB(255, 0, 0, 255),
@@ -34,3 +34,7 @@ const List<Color> taskColorsBG = [
   Color.fromARGB(40, 244, 67, 54),
   Color.fromARGB(40, 33, 149, 243)
 ];
+
+// Details screen
+const detailCardColor = Color.fromARGB(130, 130, 199, 255);
+const defaultSubjectColor = Colors.purple;

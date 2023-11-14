@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:studize/constants/Globals.dart';
 
 class MainAppBar extends AppBar {
-  MainAppBar({super.key});
+  final String? titleText;
+  final String iconAssetPath;
+  MainAppBar({
+    super.key,
+    this.titleText,
+    this.iconAssetPath = 'assets/icon/icon.png',
+  });
 
   @override
   State<MainAppBar> createState() => _MainAppBarState();
@@ -21,12 +27,12 @@ class _MainAppBarState extends State<MainAppBar> {
             width: 45,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.asset('assets/icon/icon.png'),
+              child: Image.asset(widget.iconAssetPath),
             ),
           ),
           const SizedBox(width: 10),
           Text(
-            'Hi, $username',
+            widget.titleText ?? 'Hi, $username',
             style: Theme.of(context).textTheme.titleLarge,
             // style: TextStyle(
             //   color: Colors.black,

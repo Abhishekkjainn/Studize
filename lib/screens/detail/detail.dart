@@ -1,97 +1,152 @@
 import 'package:flutter/material.dart';
+import 'package:studize/screens/detail/new_task_view.dart';
 import 'package:studize/screens/detail/widgets/date_picker.dart'; // Make sure this import is correct.
 import 'package:studize/screens/detail/widgets/task_timeline.dart';
 import 'package:studize/screens/detail/widgets/task_title.dart';
-import 'package:studize/widgets/task.dart';
+import 'package:studize/services/tasks/tasks_classes.dart';
+import 'package:studize/services/tasks/tasks_service.dart';
+import 'package:studize/widgets/app_bar.dart';
 
-class DetailPage extends StatelessWidget {
-  final Task task;
+class DetailPage extends StatefulWidget {
+  final String subjectName;
 
-  DetailPage(this.task);
+  const DetailPage(this.subjectName, {super.key});
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  late DateTime selectedDay;
+
+  @override
+  void initState() {
+    final now = DateTime.now();
+    selectedDay = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    );
+    super.initState();
+  }
+
+  List<Task> getSelectedDayTaskList(Subject subject) {
+    final DateTime dateNextDay = selectedDay.add(const Duration(days: 1));
+    final List<Task> selectedDayTaskList = subject.taskList
+        .where((task) =>
+            task.timeStart.isAfter(selectedDay) &&
+            task.timeStart.isBefore(dateNextDay))
+        .toList();
+    selectedDayTaskList
+        .sort((task1, task2) => task1.timeStart.compareTo(task2.timeStart));
+
+    // inserting blank space
+    int endIndex = selectedDayTaskList.length - 1;
+    for (int i = 0; i < endIndex; i++) {
+      if (selectedDayTaskList[i]
+          .timeEnd
+          .add(const Duration(minutes: 30))
+          .isBefore(selectedDayTaskList[i + 1].timeStart)) {
+        selectedDayTaskList.insert(
+            i + 1,
+            Task(
+              title: '',
+              description: '',
+              timeStart: selectedDayTaskList[i].timeEnd,
+              timeEnd: selectedDayTaskList[i + 1].timeStart,
+              color: Colors.transparent,
+            ));
+        i++;
+        endIndex++;
+      }
+    }
+    return selectedDayTaskList;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final detailList = task.desc;
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: CustomScrollView(
-        slivers: [
-          _buildAppBar(context),
-          SliverToBoxAdapter( // Corrected the typo here
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(30),
-                  topLeft: Radius.circular(30),
+    return FutureBuilder(
+      future: TasksService.getSubject(name: widget.subjectName),
+      builder: (context, snapshot) {
+        final Subject subject = snapshot.data!;
+        final List<Task> selectedDayTaskList = getSelectedDayTaskList(subject);
+        return Scaffold(
+          appBar: MainAppBar(
+            titleText: '${subject.name} Tasks',
+            iconAssetPath: subject.iconAssetPath,
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NewTaskView(
+                  subjectName: subject.name,
+                  refreshCallback: () {
+                    setState(() {});
+                  },
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DatePicker(),
-                  TaskTitle(),
-                ],
-              ),
             ),
+            label: const Text('New Task'),
+            icon: const Icon(Icons.edit),
           ),
-          detailList == null ?
-          SliverFillRemaining(
-              child: Container(
-                  color: Colors.white,
-                  child: Center(child: Text('No Tasks Pending',
-                      style: TextStyle(
-                          color: Colors.grey, fontSize: 18
-                      )))))
-              : SliverList(
-            delegate: SliverChildBuilderDelegate((_, index) => TaskTimeline(detailList[index]),
-                childCount: detailList.length
-            ),
-          )
-        ],
-      ),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    // color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DatePicker(
+                        callback: (selectedDay) =>
+                            setState(() => this.selectedDay = selectedDay),
+                      ),
+                      TaskTitle(),
+                    ],
+                  ),
+                ),
+              ),
+              selectedDayTaskList.isEmpty
+                  ? const NoTasksWidget()
+                  : SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                          (_, index) => TaskTimeline(
+                                task: selectedDayTaskList[index],
+                                subjectColor: subject.color,
+                              ),
+                          childCount: selectedDayTaskList.length),
+                    )
+            ],
+          ),
+        );
+      },
     );
   }
+}
 
-  Widget _buildAppBar(BuildContext context) {
-    return SliverAppBar(
-      expandedHeight: 90,
-      backgroundColor: Colors.black,
-      leading: IconButton(
-        onPressed: () => Navigator.of(context).pop(),
-        icon: Icon(
-          Icons.arrow_back_ios,
-          size: 20,
-        ),
-      ),
-      actions: [
-        Icon(
-          Icons.more_vert,
-          size: 40,
-        ),
-      ],
-      flexibleSpace: FlexibleSpaceBar(
-        title: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '${task.title} Tasks',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              'You have ${task.left} tasks for the day',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[700],
-              ),
-            ),
-          ],
+class NoTasksWidget extends StatelessWidget {
+  const NoTasksWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverFillRemaining(
+      child: Center(
+        child: Text(
+          'No Tasks Pending',
+          style: TextStyle(
+            color:
+                Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.7),
+            fontSize: 18,
+          ),
         ),
       ),
     );
