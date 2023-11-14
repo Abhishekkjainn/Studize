@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studize/widgets/tasks.dart';
+import 'package:studize/widgets/task.dart';
 
 class MainTasksView extends StatelessWidget {
   const MainTasksView({super.key});
@@ -20,7 +20,7 @@ class MainTasksView extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Tasks(),
+          child: SubjectsGrid(),
         )
       ],
     );

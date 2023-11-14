@@ -53,6 +53,8 @@ dependencies:
   http: ^1.0.0
   provider: ^6.0.5
   animated_text_kit: ^4.2.2
+  timeline_tile: ^2.0.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

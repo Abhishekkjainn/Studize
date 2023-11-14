@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studize/firebase_options.dart';
-import 'package:studize/screens/authorisation/sign_in.dart';
 import 'package:studize/screens/main_container.dart';
+import 'package:studize/services/tasks/tasks_init_functions.dart';
 import 'package:studize/styles.dart';
 import 'package:studize/constants/Globals.dart';
 
@@ -16,8 +16,10 @@ int year = todayDate.year;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
+  await initializeSujbects(targetCourse: 'JEE');
+  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
   runApp(MyApp(options: options));
@@ -52,7 +54,6 @@ class MyApp extends StatelessWidget {
 class StartingPage extends StatefulWidget {
   final int initialOptions;
 
-
   const StartingPage({Key? key, this.initialOptions = 2}) : super(key: key);
 
   @override
@@ -72,11 +73,7 @@ class _StartingPageState extends State<StartingPage> {
   final TextEditingController boardController = TextEditingController();
   String selectedYear = '2023'; // Default selected year
   String selectedEducationBoard = 'CBSE';
-  String selectedCoachingInstitute='NONE';// Default selected education board
-
-
-
-
+  String selectedCoachingInstitute = 'NONE'; // Default selected education board
 
   @override
   void initState() {
@@ -84,6 +81,7 @@ class _StartingPageState extends State<StartingPage> {
     _loadOptions();
     loadUserInfo();
   }
+
   Future<void> loadUserInfo() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -94,6 +92,7 @@ class _StartingPageState extends State<StartingPage> {
       educationBoard = prefs.getString('board') ?? '';
     });
   }
+
   Future<void> saveUserInfo() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('name', name);
@@ -128,22 +127,24 @@ class _StartingPageState extends State<StartingPage> {
 
   void _handleYearChange(String? newValue) {
     setState(() {
-      selectedYear = newValue ?? '2023'; // Provide a default value if newValue is null
+      selectedYear =
+          newValue ?? '2023'; // Provide a default value if newValue is null
     });
   }
 
   void _handleEducationBoardChange(String? newValue) {
     setState(() {
-      selectedEducationBoard = newValue ?? 'CBSE'; // Provide a default value if newValue is null
+      selectedEducationBoard =
+          newValue ?? 'CBSE'; // Provide a default value if newValue is null
     });
   }
 
   void _handleCoachingInstituteChange(String? newValue) {
     setState(() {
-      selectedCoachingInstitute = newValue ?? 'NONE'; // Provide a default value if newValue is null
+      selectedCoachingInstitute =
+          newValue ?? 'NONE'; // Provide a default value if newValue is null
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +181,9 @@ class _StartingPageState extends State<StartingPage> {
                   });
                 },
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               const Text('Gender:'),
               Row(
                 children: [
@@ -209,7 +212,8 @@ class _StartingPageState extends State<StartingPage> {
               DropdownButtonFormField<String>(
                 value: selectedCoachingInstitute,
                 onChanged: _handleCoachingInstituteChange,
-                items: ['FIITJEE',
+                items: [
+                  'FIITJEE',
                   'Resonance',
                   'Allen Career Institute',
                   'Bansal Classes',
@@ -229,18 +233,20 @@ class _StartingPageState extends State<StartingPage> {
                   'Narayana IIT Academy',
                   'Motion IIT-JEE',
                   'Prerna Classes',
-                  'Others'
-                ,'NONE'].map((coachingInstitute) {
+                  'Others',
+                  'NONE'
+                ].map((coachingInstitute) {
                   return DropdownMenuItem<String>(
                     value: coachingInstitute,
-                    child: Text(coachingInstitute,
-                      style: const TextStyle(fontSize: 13),),
+                    child: Text(
+                      coachingInstitute,
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   );
                 }).toList(),
                 decoration: const InputDecoration(
                     labelText: 'Coaching Institute',
-                    labelStyle: TextStyle(fontSize: 22)
-                ),
+                    labelStyle: TextStyle(fontSize: 22)),
               ),
               DropdownButtonFormField<String>(
                 value: selectedYear,
@@ -248,14 +254,15 @@ class _StartingPageState extends State<StartingPage> {
                 items: ['2023', '2024', '2025', '2026', '2027'].map((year) {
                   return DropdownMenuItem<String>(
                     value: year,
-                    child: Text(year,
-                      style: const TextStyle(fontSize: 13),),
+                    child: Text(
+                      year,
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   );
                 }).toList(),
                 decoration: const InputDecoration(
                     labelText: 'Year of Appearing',
-                    labelStyle: TextStyle(fontSize: 22)
-                ),
+                    labelStyle: TextStyle(fontSize: 22)),
               ),
               const SizedBox(height: 16),
 
@@ -279,23 +286,24 @@ class _StartingPageState extends State<StartingPage> {
                   'State Open School Boards',
                   'International Boards',
                   'Others',
-
                 ].map((board) {
                   return DropdownMenuItem<String?>(
                     value: board,
-                    child: Text(board,style: const TextStyle(fontSize: 13),),
+                    child: Text(
+                      board,
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   );
                 }).toList(),
                 decoration: const InputDecoration(
                   labelText: 'Education Board',
-                  labelStyle:TextStyle(fontSize: 22),
+                  labelStyle: TextStyle(fontSize: 22),
                 ),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () async {
-                  if(name != '' &&  age != 0 && selectedGender!='')
-                  {
+                  if (name != '' && age != 0 && selectedGender != '') {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -306,9 +314,7 @@ class _StartingPageState extends State<StartingPage> {
                         content: Text('User information saved.'),
                       ),
                     );
-                  }
-                  else
-                  {
+                  } else {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
@@ -334,11 +340,9 @@ class _StartingPageState extends State<StartingPage> {
                       },
                     );
                   }
-                  username=extractFirstName(name);
-
+                  username = extractFirstName(name);
                 },
                 child: const Text('Save'),
-
               ),
               //TO ACCESS THE USER INFO
 
@@ -355,12 +359,11 @@ class _StartingPageState extends State<StartingPage> {
           ),
         ),
       ),
-
     );
   }
 
   Future<void> proceedState() async {
-    if (name=="") {
+    if (name == "") {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MainContainer()),
@@ -370,9 +373,7 @@ class _StartingPageState extends State<StartingPage> {
         context,
         MaterialPageRoute(builder: (context) => const MainContainer()),
       );
-    } else {
-
-    }
+    } else {}
   }
 }
 
