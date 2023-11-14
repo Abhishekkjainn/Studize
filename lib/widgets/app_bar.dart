@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studize/constants/Globals.dart';
+import 'package:studize/constants/globals.dart';
 
 class MainAppBar extends AppBar {
   final String? titleText;

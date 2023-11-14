@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-var brightness =
-    SchedulerBinding.instance.platformDispatcher.platformBrightness;
-bool isDarkMode = brightness == Brightness.dark;
+final TextTheme mainTextTheme = TextTheme(
+  displayLarge: const TextStyle(
+    fontSize: 72,
+    fontWeight: FontWeight.bold,
+  ),
+  // ···
+  titleLarge: GoogleFonts.oswald(
+    fontSize: 30,
+    // fontStyle: FontStyle.italic,
+  ),
+  bodyMedium: GoogleFonts.merriweather(),
+  displaySmall: GoogleFonts.pacifico(),
+);
 
-ThemeData mainAppTheme = ThemeData(
+final ThemeData mainAppTheme = ThemeData(
   useMaterial3: true,
-
-  // Define the default brightness and colors
   colorScheme: ColorScheme.fromSeed(
-    seedColor: Colors.purple,
-    brightness: isDarkMode ? Brightness.dark : Brightness.light,
+    seedColor: Colors.deepPurple,
+    brightness: Brightness.light,
   ),
-  textTheme: TextTheme(
-    displayLarge: const TextStyle(
-      fontSize: 72,
-      fontWeight: FontWeight.bold,
-    ),
-    // ···
-    titleLarge: GoogleFonts.oswald(
-      fontSize: 30,
-      // fontStyle: FontStyle.italic,
-    ),
-    bodyMedium: GoogleFonts.merriweather(),
-    displaySmall: GoogleFonts.pacifico(),
+  textTheme: mainTextTheme,
+  brightness: Brightness.light,
+);
+
+final ThemeData mainAppThemeDark = ThemeData(
+  brightness: Brightness.dark,
+  useMaterial3: true,
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: Colors.deepPurple,
+    brightness: Brightness.dark,
   ),
+  textTheme: mainTextTheme,
 );

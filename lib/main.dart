@@ -6,7 +6,7 @@ import 'package:studize/firebase_options.dart';
 import 'package:studize/screens/main_container.dart';
 import 'package:studize/services/tasks/tasks_init_functions.dart';
 import 'package:studize/styles.dart';
-import 'package:studize/constants/Globals.dart';
+import 'package:studize/constants/globals.dart';
 
 DateTime selectedDate = DateTime(2024, 04, 15);
 DateTime todayDate = DateTime.now();
@@ -46,6 +46,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: mainAppTheme,
+      darkTheme: mainAppThemeDark,
+      themeMode: ThemeMode.system,
       home: initialScreen,
     );
   }

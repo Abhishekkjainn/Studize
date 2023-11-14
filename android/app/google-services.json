@@ -1,8 +1,8 @@
 {
   "project_info": {
-    "project_number": "1041401962371",
-    "project_id": "studize-login",
-    "storage_bucket": "studize-login.appspot.com"
+    "project_number": "201442277639",
+    "project_id": "studize-firebase",
+    "storage_bucket": "studize-firebase.appspot.com"
   },
   "client": [
     {
@@ -20,7 +20,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBs0mRpsUZjV8_0EvbJbFmrE15gyEODO-g"
+          "current_key": "AIzaSyDxW-pn8CmCId_LD3FjPBX_k1NWm0vylaI"
         }
       ],
       "services": {
