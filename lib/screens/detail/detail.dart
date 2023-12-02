@@ -30,36 +30,31 @@ class _DetailPageState extends State<DetailPage> {
     super.initState();
   }
 
-  List<Task> getSelectedDayTaskList(Subject subject) {
+  List<Task?> getSelectedDayTaskList(Subject subject) {
     final DateTime dateNextDay = selectedDay.add(const Duration(days: 1));
-    final List<Task> selectedDayTaskList = subject.taskList
+    final List<Task?> selectedDayTaskList = subject.taskList
         .where((task) =>
             task.timeStart.isAfter(selectedDay) &&
             task.timeStart.isBefore(dateNextDay))
         .toList();
     selectedDayTaskList
-        .sort((task1, task2) => task1.timeStart.compareTo(task2.timeStart));
+        .sort((task1, task2) => task1!.timeStart.compareTo(task2!.timeStart));
 
-    // inserting blank space
-    int endIndex = selectedDayTaskList.length - 1;
-    for (int i = 0; i < endIndex; i++) {
-      if (selectedDayTaskList[i]
-          .timeEnd
-          .add(const Duration(minutes: 30))
-          .isBefore(selectedDayTaskList[i + 1].timeStart)) {
-        selectedDayTaskList.insert(
-            i + 1,
-            Task(
-              title: '',
-              description: '',
-              timeStart: selectedDayTaskList[i].timeEnd,
-              timeEnd: selectedDayTaskList[i + 1].timeStart,
-              color: Colors.transparent,
-            ));
-        i++;
-        endIndex++;
-      }
-    }
+    // // inserting blank space
+    // int endIndex = selectedDayTaskList.length - 1;
+    // for (int i = 0; i < endIndex; i++) {
+    //   if (selectedDayTaskList[i]!
+    //       .timeEnd
+    //       .add(const Duration(minutes: 30))
+    //       .isBefore(selectedDayTaskList[i + 1]!.timeStart)) {
+    //     selectedDayTaskList.insert(
+    //       i + 1,
+    //       null,
+    //     );
+    //     i += 2;
+    //     endIndex++;
+    //   }
+    // }
     return selectedDayTaskList;
   }
 
@@ -69,7 +64,7 @@ class _DetailPageState extends State<DetailPage> {
       future: TasksService.getSubject(name: widget.subjectName),
       builder: (context, snapshot) {
         final Subject subject = snapshot.data!;
-        final List<Task> selectedDayTaskList = getSelectedDayTaskList(subject);
+        final List<Task?> selectedDayTaskList = getSelectedDayTaskList(subject);
         return Scaffold(
           appBar: MainAppBar(
             titleText: '${subject.name} Tasks',
@@ -82,7 +77,9 @@ class _DetailPageState extends State<DetailPage> {
                 builder: (context) => NewTaskView(
                   subjectName: subject.name,
                   refreshCallback: () {
-                    setState(() {});
+                    setState(
+                      () {},
+                    ); // to refresh this page when the new screen is exited
                   },
                 ),
               ),
@@ -117,11 +114,18 @@ class _DetailPageState extends State<DetailPage> {
                   ? const NoTasksWidget()
                   : SliverList(
                       delegate: SliverChildBuilderDelegate(
-                          (_, index) => TaskTimeline(
-                                task: selectedDayTaskList[index],
-                                subjectColor: subject.color,
-                              ),
-                          childCount: selectedDayTaskList.length),
+                        (_, index) => TaskTimeline(
+                          task: selectedDayTaskList[index],
+                          subjectName: widget.subjectName,
+                          subjectColor: subject.color,
+                          isFirst: index == 0,
+                          isLast: index == selectedDayTaskList.length - 1,
+                          refreshCallback: () {
+                            setState(() {});
+                          },
+                        ),
+                        childCount: selectedDayTaskList.length,
+                      ),
                     )
             ],
           ),

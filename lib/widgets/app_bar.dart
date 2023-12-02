@@ -21,10 +21,10 @@ class _MainAppBarState extends State<MainAppBar> {
       // backgroundColor: Colors.white,
       elevation: 0,
       title: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 45,
-            width: 45,
+          SizedBox.square(
+            dimension: 30,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(widget.iconAssetPath),
@@ -43,10 +43,13 @@ class _MainAppBarState extends State<MainAppBar> {
         ],
       ),
       actions: const [
-        Icon(
-          Icons.more_vert,
-          // color: Colors.black,
-          size: 40,
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Icon(
+            Icons.more_vert,
+            // color: Colors.black,
+            size: 30,
+          ),
         )
       ],
     );

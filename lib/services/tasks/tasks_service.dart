@@ -147,6 +147,7 @@ class TasksService {
     throw SubjectNotFoundException();
   }
 
+  /// Creates new task for the subject specified using [subjectName].
   static Future<void> createTask({
     required String subjectName,
     required String title,
@@ -155,16 +156,17 @@ class TasksService {
     required DateTime timeEnd,
     required Color color,
   }) async {
+    // inside this function, subject is accessed as `subjectList[subjectIndex]`
+    final subjectList = await getSubjectList();
+    final subjectIndex = await getSubjectIndex(name: subjectName);
     final Task task = Task(
+      id: subjectList[subjectIndex].nextTaskId++,
       title: title,
       description: description,
       timeStart: timeStart,
       timeEnd: timeEnd,
       color: color,
     );
-    final subjectList = await getSubjectList();
-    final subjectIndex = await getSubjectIndex(name: subjectName);
-
     subjectList[subjectIndex].taskList.add(task);
     subjectList[subjectIndex].numTasksLeft++;
     await _setSubjectList(subjectList: subjectList);
@@ -176,18 +178,116 @@ class TasksService {
     return subject.taskList;
   }
 
+  /// Returns task object that corresponds to the specified [taskId] inside the
+  /// specified [subjectName].
+  ///
+  /// Throws exception `TaskNotFoundException` if specified `taskId` is not found
+  /// and `SubjectNotFoundException` if specified `subjectName` is not found.
   static Future<Task> getTask(
-      {required String subjectName, required int taskIndex}) async {
-    throw UnimplementedError();
+      {required String subjectName, required int taskId}) async {
+    // inside this function, subject is accessed as `subjectList[subjectIndex]`
+    final subjectList = await getSubjectList();
+    final subjectIndex = await getSubjectIndex(name: subjectName);
+    for (int i = 0; i < subjectList[subjectIndex].taskList.length; i++) {
+      if (subjectList[subjectIndex].taskList[i].id == taskId) {
+        return subjectList[subjectIndex].taskList[i];
+      }
+    }
+
+    // If the loop completes without finding the specified id, then throw
+    // exception
+    throw TaskNotFoundException();
   }
 
-  static Future<Task> updateTask(
-      {required String subjectName, required int taskIndex}) async {
-    throw UnimplementedError();
+  /// Updates the task specified by [taskId] for subject specified by
+  /// [subjectName]. `null` fields are left unchanged.
+  ///
+  /// Returns the updated task object
+  ///
+  /// Throws exception `TaskNotFoundException` if specified `taskId` is not found
+  /// and `SubjectNotFoundException` if specified `subjectName` is not found.
+  static Future<Task> updateTask({
+    required String subjectName,
+    required int taskId,
+    String? newTitle,
+    String? newDescription,
+    DateTime? newTimeStart,
+    DateTime? newTimeEnd,
+    Color? newColor,
+    bool? newIsCompleted,
+  }) async {
+    // inside this function, subject is accessed as `subjectList[subjectIndex]`
+    final subjectList = await getSubjectList();
+    final subjectIndex = await getSubjectIndex(name: subjectName);
+
+    // loop to look for matching taskId
+    final int taskListLength = subjectList[subjectIndex].taskList.length;
+    for (int i = 0; i < taskListLength; i++) {
+      if (subjectList[subjectIndex].taskList[i].id == taskId) {
+        if (newTitle != null) {
+          subjectList[subjectIndex].taskList[i].title = newTitle;
+        }
+        if (newDescription != null) {
+          subjectList[subjectIndex].taskList[i].description = newDescription;
+        }
+        if (newTimeStart != null) {
+          subjectList[subjectIndex].taskList[i].timeStart = newTimeStart;
+        }
+        if (newTimeEnd != null) {
+          subjectList[subjectIndex].taskList[i].timeEnd = newTimeEnd;
+        }
+        if (newColor != null) {
+          subjectList[subjectIndex].taskList[i].color = newColor;
+        }
+        if (newIsCompleted != null) {
+          // If a task was not completed before and is now going to be marked
+          // as completed, reduce count of remaining tasks. Conversely, if task
+          // was completed before but now is marked as not-completed, increase
+          // count of remaining tasks by 1
+          if (subjectList[subjectIndex].taskList[i].isCompleted) {
+            if (!newIsCompleted) subjectList[subjectIndex].numTasksLeft--;
+          } else {
+            if (newIsCompleted) subjectList[subjectIndex].numTasksLeft++;
+          }
+          subjectList[subjectIndex].taskList[i].isCompleted = newIsCompleted;
+        }
+        // set updated subjectlist
+        await _setSubjectList(subjectList: subjectList);
+        return subjectList[subjectIndex].taskList[i];
+      }
+    }
+
+    // If the loop completes without finding the specified id, then throw
+    // exception
+    throw TaskNotFoundException();
   }
 
+  /// Deltes the task specified by [taskId] for subject specified by
+  /// [subjectName].
+  ///
+  /// Throws exception `TaskNotFoundException` if specified `taskId` is not found
+  /// and `SubjectNotFoundException` if specified `subjectName` is not found
   static Future<void> deleteTask(
-      {required String subjectName, required int taskIndex}) async {
-    throw UnimplementedError();
+      {required String subjectName, required int taskId}) async {
+    final subjectList = await getSubjectList();
+    final subjectIndex = await getSubjectIndex(name: subjectName);
+    for (int i = 0; i < subjectList[subjectIndex].taskList.length; i++) {
+      if (subjectList[subjectIndex].taskList[i].id == taskId) {
+        // if the task to be removed was not completed, then decrement the
+        // number of tasks left
+        if (!subjectList[subjectIndex].taskList[i].isCompleted) {
+          subjectList[subjectIndex].numTasksLeft--;
+        }
+        // remove the task from list
+        subjectList[subjectIndex].taskList.removeAt(i);
+        // set updated subjectlist
+        await _setSubjectList(subjectList: subjectList);
+        return;
+      }
+    }
+
+    // If the loop completes without finding the specified id, then throw
+    // exception
+    throw TaskNotFoundException();
   }
 }
