@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:studize/screens/aiMentor/constants/constants.dart';
 import 'package:studize/screens/aiMentor/services/assets_manager.dart';
 import 'package:studize/screens/aiMentor/services/services.dart';
 import 'package:studize/screens/aiMentor/widgets/chat_widget.dart';
-import 'package:studize/screens/aiMentor/widgets/text_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);

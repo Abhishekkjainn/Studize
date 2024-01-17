@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:studize/services/tasks/tasks_classes.dart';
 import 'package:studize/services/tasks/tasks_service.dart';
 import 'package:studize/widgets/app_bar.dart';
@@ -338,8 +337,8 @@ class StartTimeInputWidget extends StatelessWidget {
             if (startTimeOfDay != null) {
               startDate = startDate.add(
                 Duration(
-                  hours: startTimeOfDay!.hour,
-                  minutes: startTimeOfDay!.minute,
+                  hours: startTimeOfDay.hour,
+                  minutes: startTimeOfDay.minute,
                 ),
               );
             }

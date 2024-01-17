@@ -11,7 +11,7 @@ class _DoneState extends State<Done> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Done"),),
+      appBar: AppBar(title: const Text("Done"),),
     );
   }
 }

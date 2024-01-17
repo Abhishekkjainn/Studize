@@ -1,8 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:studize/firebase_options.dart';
 class FirebaseServices {
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
@@ -25,7 +22,7 @@ class FirebaseServices {
       }
     } on FirebaseAuthException catch (e) {
       print(e.message);
-      throw e;
+      rethrow;
     }
   }
 

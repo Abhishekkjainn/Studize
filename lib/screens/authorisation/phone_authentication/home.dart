@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:studize/firebase_options.dart';
-import 'package:studize/constants/colors.dart';
-import 'package:studize/screens/authorisation/phone_authentication/NumericPad.dart';
+import 'package:studize/screens/authorisation/phone_authentication/numeric_pad.dart';
 import 'package:studize/screens/authorisation/phone_authentication/done.dart';
 
 class Home extends StatefulWidget {
@@ -14,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  TextEditingController _codecontroller = new TextEditingController();
+  final TextEditingController _codecontroller = TextEditingController();
   String phoneNumber = "", data = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String smscode = "";
@@ -28,15 +25,17 @@ class _HomeState extends State<Home> {
   // }
 
   _signInWithMobileNumber() async {
-    UserCredential _credential;
-    User user;
+    // // The following variables were declared but never used.
+    // // Commented out to remove warnings.
+    // UserCredential credential;
+    // User user;
     try {
       await _auth.verifyPhoneNumber(
-          phoneNumber: '+91' + data.trim(),
+          phoneNumber: '+91${data.trim()}',
           verificationCompleted: (PhoneAuthCredential authCredential) async {
             await _auth.signInWithCredential(authCredential).then((value) {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Done()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Done()));
             });
           },
           verificationFailed: ((error) {
@@ -47,7 +46,7 @@ class _HomeState extends State<Home> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => AlertDialog(
-                      title: Text("Enter OTP"),
+                      title: const Text("Enter OTP"),
                       content: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -61,33 +60,33 @@ class _HomeState extends State<Home> {
                             onPressed: () {
                               FirebaseAuth auth = FirebaseAuth.instance;
                               smscode = _codecontroller.text;
-                              PhoneAuthCredential _credential =
+                              PhoneAuthCredential credential =
                                   PhoneAuthProvider.credential(
                                       verificationId: verificationId,
                                       smsCode: smscode);
                               auth
-                                  .signInWithCredential(_credential)
+                                  .signInWithCredential(credential)
                                   .then((result) {
-                                if (result != null) {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Done()));
-                                }
+                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Done()));
                               }).catchError((e) {
                                 print(e);
                               });
                             },
-                            child: Text("Done"))
+                            child: const Text("Done"))
                       ],
                     ));
           },
           codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = verificationId;
           },
-          timeout: Duration(seconds: 45));
-    } catch (e) {}
+          timeout: const Duration(seconds: 45));
+    } catch (e) {
+      print('Failed to login with mobile number');
+    }
   }
 
   @override
@@ -95,7 +94,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Continue with phone",
         ),
         elevation: 0,
@@ -105,44 +104,41 @@ class _HomeState extends State<Home> {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 130,
-                      child: Image.asset('assets/icon/phoneAuth.png'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 130,
+                    child: Image.asset('assets/icon/phoneAuth.png'),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 64),
+                    child: Text(
+                      "You'll receive a 6 digit code to verify next.",
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 14, horizontal: 64),
-                      child: Text(
-                        "You'll receive a 6 digit code to verify next.",
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Container(
               height: MediaQuery.of(context).size.height * 0.13,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(
                   Radius.circular(25),
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   children: <Widget>[
-                    Container(
+                    SizedBox(
                       width: 230,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "Enter your phone",
                             style: TextStyle(
                               fontSize: 14,
@@ -150,12 +146,12 @@ class _HomeState extends State<Home> {
                               color: Colors.grey,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 2,
                           ),
                           Text(
                             phoneNumber,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
@@ -177,7 +173,7 @@ class _HomeState extends State<Home> {
                           decoration: BoxDecoration(
                               color: Colors.blueAccent,
                               borderRadius: BorderRadius.circular(25)),
-                          child: Center(
+                          child: const Center(
                             child: Text(
                               "Continue",
                             ),

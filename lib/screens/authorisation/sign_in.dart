@@ -6,10 +6,7 @@ import 'package:studize/screens/authorisation/reset_password.dart';
 import 'package:studize/widgets/google_firebase.dart';
 import 'package:studize/widgets/reusable_widgets.dart';
 import 'dart:developer' as dartdev show log;
-import 'package:firebase_core/firebase_core.dart';
-import 'package:studize/firebase_options.dart';
 import 'sign_up.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SignInScreen extends StatefulWidget {

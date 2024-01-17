@@ -105,7 +105,7 @@ class _DetailPageState extends State<DetailPage> {
                         callback: (selectedDay) =>
                             setState(() => this.selectedDay = selectedDay),
                       ),
-                      TaskTitle(),
+                      const TaskTitle(),
                     ],
                   ),
                 ),

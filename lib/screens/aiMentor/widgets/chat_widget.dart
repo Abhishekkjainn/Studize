@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:studize/screens/aiMentor/constants/constants.dart';
 import 'package:studize/screens/aiMentor/services/assets_manager.dart';
 import 'package:studize/screens/aiMentor/widgets/text_widget.dart';
@@ -36,7 +35,7 @@ class ChatWidget extends StatelessWidget {
                     : const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.thumb_up_alt_outlined,
                             color: Colors.white,

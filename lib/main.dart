@@ -150,9 +150,6 @@ class _StartingPageState extends State<StartingPage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Info Storage'),
@@ -311,6 +308,7 @@ class _StartingPageState extends State<StartingPage> {
                         MaterialPageRoute(
                             builder: (context) => const MainContainer()));
                     await saveUserInfo();
+                    if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('User information saved.'),

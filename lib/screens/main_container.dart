@@ -24,7 +24,7 @@ class _MainContainerState extends State<MainContainer> {
         page = const MainInfoView();
         break;
       case 2:
-        page = const gpt_main();
+        page = const GptMain();
         break;
       case 3:
         page = const Placeholder();

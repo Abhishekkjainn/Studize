@@ -51,17 +51,6 @@ class SubjectsGrid extends StatelessWidget {
         });
   }
 
-  Widget _buildAddSubject() {
-    return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          // Add task logic
-        },
-        child: const Text('Add Task'),
-      ),
-    );
-  }
-
   Widget _buildSubject(BuildContext context, Subject subject) {
     return GestureDetector(
       onTap: () {

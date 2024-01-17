@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class TaskTitle extends StatelessWidget {
+  const TaskTitle({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             'Tasks',
             style: TextStyle(
               fontSize: 22,
@@ -17,7 +19,7 @@ class TaskTitle extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.grey.withOpacity(0.1),
               borderRadius: BorderRadius.circular(20),
@@ -31,7 +33,7 @@ class TaskTitle extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Icon(
+                const Icon(
                   Icons.keyboard_arrow_down_outlined,
                   color: Colors.white, // Set icon color to white
                 ),
