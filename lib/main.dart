@@ -16,10 +16,7 @@ int year = todayDate.year;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform); // Initialize Firebase
   await initializeSujbects(targetCourse: 'JEE');
-  WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
   runApp(MyApp(options: options));
@@ -43,12 +40,30 @@ class MyApp extends StatelessWidget {
     }
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: mainAppTheme,
-      darkTheme: mainAppThemeDark,
-      themeMode: ThemeMode.system,
-      home: initialScreen,
+    return FutureBuilder(
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+          case ConnectionState.active:
+            // TODO: show loading screen.
+            return const Placeholder();
+          case ConnectionState.done:
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: mainAppTheme,
+              darkTheme: mainAppThemeDark,
+              themeMode: ThemeMode.system,
+              home: initialScreen,
+            );
+          case ConnectionState.none:
+          default:
+            // TODO: show an error screen.
+            return const Placeholder();
+        }
+      },
     );
   }
 }
