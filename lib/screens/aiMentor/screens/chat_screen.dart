@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:studize/screens/aiMentor/constants/constants.dart';
+import 'package:studize/screens/aiMentor/services/api_service.dart';
 import 'package:studize/screens/aiMentor/services/assets_manager.dart';
 import 'package:studize/screens/aiMentor/services/services.dart';
 import 'package:studize/screens/aiMentor/widgets/chat_widget.dart';
@@ -89,7 +90,17 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            try
+                            {
+                              await ApiService.getModels();
+                            }
+                            catch(error)
+                            {
+                              print("error $error");
+                            }
+
+                          },
                           icon: const Icon(
                             Icons.send,
                             color: Colors.white,

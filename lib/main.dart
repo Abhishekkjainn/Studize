@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,24 +21,57 @@ void main() async {
   await initializeSujbects(targetCourse: 'JEE');
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
+  userUID = FirebaseAuth.instance.currentUser?.uid;
   runApp(MyApp(options: options));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final int options;
 
   const MyApp({Key? key, required this.options}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+
+  checkIfLogin() async
+  {
+    auth.authStateChanges().listen((User? user) {
+      if(user!=null && mounted)
+      {
+        setState(() {
+          isLogin=true;
+        });
+      }
+    });
+  }
+
+
+  @override
+  void initState() {
+    checkIfLogin();// TODO: implement initState
+    super.initState();
+  }
   Widget build(BuildContext context) {
     Widget initialScreen;
-    if (options == 0) {
+    if (widget.options == 0) {
       initialScreen = const MainContainer();
-    } else if (options == 1) {
+    } else if (widget.options == 1) {
       initialScreen = const MainContainer();
     } else {
-      // initialScreen = const SignInScreen();
-      initialScreen = const MainContainer();
+      if(isUser==true)
+      {
+        initialScreen = isLogin ? const MainContainer() : const SignInScreen();
+      }
+      else
+      {
+        initialScreen = isLogin ? const StartingPage() : const SignInScreen();
+      }
+
+      // initialScreen = const MainContainer();
     }
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
@@ -117,6 +152,20 @@ class _StartingPageState extends State<StartingPage> {
     await prefs.setString('institute', instituteName);
     await prefs.setInt('year', yearOfAppearing);
     await prefs.setString('board', educationBoard);
+
+  }
+
+
+
+  Future addUserDetails(String name, int age,String gender, String coaching_institue, String year_of_appearing, String education_board) async {
+    await FirebaseFirestore.instance.collection("users").doc(userUID).set({
+      'name':name,
+      'age':age,
+      'gender':gender,
+      'coaching_institute':coaching_institue,
+      'year_of_appearing':year_of_appearing,
+      'education_board':education_board
+    });
   }
 
   void _loadOptions() async {
@@ -317,13 +366,19 @@ class _StartingPageState extends State<StartingPage> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () async {
-                  if (name != '' && age != 0 && selectedGender != '') {
+                  setState(() {
+                    isUser=true;
+                  });
+                  if(name != '' &&  age != 0 && selectedGender!='')
+                  {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const MainContainer()));
-                    await saveUserInfo();
-                    if (!context.mounted) return;
+                    saveUserInfo();
+
+                    addUserDetails(name,age,selectedGender.toString(),selectedCoachingInstitute,selectedYear,selectedEducationBoard
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('User information saved.'),
@@ -347,6 +402,7 @@ class _StartingPageState extends State<StartingPage> {
                             TextButton(
                               child: const Text('Continue'),
                               onPressed: () {
+
                                 Navigator.of(context).pop();
                               },
                             ),

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:studize/main.dart';
 import 'package:studize/screens/authorisation/phone_authentication/home.dart';
 import 'package:studize/screens/authorisation/reset_password.dart';
+import 'package:studize/screens/main_container.dart';
+import 'package:studize/widgets/app_bar.dart';
 import 'package:studize/widgets/google_firebase.dart';
 import 'package:studize/widgets/reusable_widgets.dart';
 import 'dart:developer' as dartdev show log;
