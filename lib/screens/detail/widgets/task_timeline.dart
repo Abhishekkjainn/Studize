@@ -6,16 +6,14 @@ import 'package:timeline_tile/timeline_tile.dart';
 
 class TaskTimeline extends StatelessWidget {
   final Task? task; // null task indicates blank space
-  final String subjectName;
-  final Color subjectColor;
+  final Color color;
   final bool isFirst;
   final bool isLast;
   final VoidCallback refreshCallback;
   const TaskTimeline({
     super.key,
     required this.task,
-    required this.subjectName,
-    required this.subjectColor,
+    required this.color,
     required this.isFirst,
     required this.isLast,
     required this.refreshCallback,
@@ -32,7 +30,7 @@ class TaskTimeline extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _buildTimeline(subjectColor.withOpacity(0.8), isFirst, isLast),
+            _buildTimeline(color.withOpacity(0.8), isFirst, isLast),
             (task == null)
                 ? const SizedBox(
                     height: 30,
@@ -49,7 +47,7 @@ class TaskTimeline extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ModifyTaskView(
-                                    subjectName: subjectName,
+                                    subjectName: task!.subjectName,
                                     taskId: task!.id,
                                     refreshCallback: refreshCallback)));
                       },
@@ -118,13 +116,13 @@ class TaskTimeline extends StatelessWidget {
     required String description,
   }) {
     return Container(
-      width: 250,
+      width: 200,
       decoration: BoxDecoration(
           color: bgColor?.withOpacity(0.5) ?? Colors.transparent,
           // color: Colors.amber.withOpacity(0.3),
           borderRadius: const BorderRadius.all(Radius.circular(10))),
       padding: const EdgeInsets.all(15),
-      margin: const EdgeInsets.all(5),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const Color completedTaskColor = Color.fromARGB(255, 0, 143, 7);
+
 const Color kYellowLight = Color(0xFFFFF7EC);
 const Color kYellow = Color(0xFFFAF0DA);
 const Color kYellowDark = Color(0xFFEBBB7F);

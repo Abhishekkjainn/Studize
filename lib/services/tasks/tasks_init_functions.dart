@@ -8,7 +8,7 @@ Future<void> initializeSujbects({required String targetCourse}) async {
 
   switch (targetCourse) {
     case 'JEE':
-      print('LESSSGOOOOOO initialzeSubjects');
+      print('Initialising Subjects for JEE');
 
       final subjectNameList = await TasksService.getSubjectNameList();
       final List<String> requiredSubjectNameList = [
@@ -21,7 +21,7 @@ Future<void> initializeSujbects({required String targetCourse}) async {
         Colors.yellow,
         Colors.blue,
       ];
-      print(subjectNameList);
+      print('initialised subjectNameList: $subjectNameList');
       for (int i = 0; i < requiredSubjectNameList.length; i++) {
         final String name = requiredSubjectNameList[i];
         if (!subjectNameList.contains(name)) {
@@ -33,10 +33,9 @@ Future<void> initializeSujbects({required String targetCourse}) async {
         }
       }
 
-      print('Adding them tasks');
       await addTaskstoSubject('Physics');
-      // await addTaskstoSubject('Chemistry');
-      // await addTaskstoSubject('Mathematics');
+      await addTaskstoSubject('Chemistry');
+      await addTaskstoSubject('Mathematics');
       break;
     default:
   }
@@ -50,6 +49,7 @@ Future<void> deleteAllSubjects() async {
 }
 
 Future<void> addTaskstoSubject(String subjectName) async {
+  print('Adding task to $subjectName');
   await TasksService.createTask(
     subjectName: subjectName,
     title: 'Chapter One',
