@@ -89,14 +89,15 @@ class _DetailPageState extends State<DetailPage> {
       onPressed: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => NewTaskView(
-            subjectName: subject.name,
-            refreshCallback: () {
-              setState(
-                () {},
-              ); // to refresh this page when the new screen is exited
-            },
-          ),
+          // builder: (context) => NewTaskView(
+          //   subjectName: subject.name,
+          //   refreshCallback: () {
+          //     setState(
+          //       () {},
+          //     ); // to refresh this page when the new screen is exited
+          //   },
+          // ),
+          builder: (context) => const NewTaskCategoryPicker(),
         ),
       ),
       label: const Text('New Task'),

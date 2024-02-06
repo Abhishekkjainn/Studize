@@ -7,6 +7,7 @@ import 'package:studize/services/tasks/tasks_classes.dart';
 import 'package:studize/services/tasks/tasks_exceptions.dart';
 
 class TasksService {
+  // TODO: implement caching
   static final Future<SharedPreferences> _prefs =
       SharedPreferences.getInstance();
 

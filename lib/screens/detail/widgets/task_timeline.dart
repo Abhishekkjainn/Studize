@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:studize/screens/detail/new_task_view.dart';
+import 'package:studize/screens/detail/modify_task_view.dart';
 import 'package:studize/services/tasks/tasks_classes.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
