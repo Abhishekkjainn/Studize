@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studize/constants/globals.dart';
-import 'package:studize/constants/Globals.dart';
 import 'package:studize/main.dart';
 import 'package:studize/screens/authorisation/sign_in.dart';
 
@@ -57,8 +55,10 @@ class _MainAppBarState extends State<MainAppBar> {
         PopupMenuButton(
           onSelected: (value) {
             if (value == 'Edit Profile') {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const StartingPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const StartingPage()));
               // Perform logout logic here
             }
           },
@@ -80,9 +80,11 @@ class _MainAppBarState extends State<MainAppBar> {
           onSelected: (value) {
             if (value == 'logout') {
               auth.signOut();
-              isLogin=false;
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SignInScreen()));
+              isLogin = false;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SignInScreen()));
               // Perform logout logic here
             }
           },

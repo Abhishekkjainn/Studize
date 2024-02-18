@@ -1,15 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:studize/screens/authorisation/phone_authentication/numeric_pad.dart';
-import 'package:studize/screens/authorisation/phone_authentication/done.dart';
-=======
-import 'package:firebase_core/firebase_core.dart';
-import 'package:studize/firebase_options.dart';
-import 'package:studize/constants/colors.dart';
 import 'package:studize/main.dart';
-import 'package:studize/screens/authorisation/phone_authentication/NumericPad.dart';
->>>>>>> dev-rakshit
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,13 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-<<<<<<< HEAD
   final TextEditingController _codecontroller = TextEditingController();
-=======
-
-
-  final TextEditingController _codecontroller = new TextEditingController();
->>>>>>> dev-rakshit
   String phoneNumber = "", data = "";
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String smscode = "";
@@ -48,13 +34,10 @@ class _HomeState extends State<Home> {
           phoneNumber: '+91${data.trim()}',
           verificationCompleted: (PhoneAuthCredential authCredential) async {
             await _auth.signInWithCredential(authCredential).then((value) {
-<<<<<<< HEAD
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Done()));
-=======
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const StartingPage()));
->>>>>>> dev-rakshit
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const StartingPage()));
             });
           },
           verificationFailed: ((error) {
@@ -65,7 +48,6 @@ class _HomeState extends State<Home> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => AlertDialog(
-<<<<<<< HEAD
                       title: const Text("Enter OTP"),
                       content: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -80,18 +62,19 @@ class _HomeState extends State<Home> {
                             onPressed: () {
                               FirebaseAuth auth = FirebaseAuth.instance;
                               smscode = _codecontroller.text;
-                              PhoneAuthCredential credential =
+                              PhoneAuthCredential _credential =
                                   PhoneAuthProvider.credential(
                                       verificationId: verificationId,
                                       smsCode: smscode);
                               auth
-                                  .signInWithCredential(credential)
+                                  .signInWithCredential(_credential)
                                   .then((result) {
                                 Navigator.pop(context);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const Done()));
+                                        builder: (context) =>
+                                            const StartingPage()));
                               }).catchError((e) {
                                 print(e);
                               });
@@ -99,55 +82,14 @@ class _HomeState extends State<Home> {
                             child: const Text("Done"))
                       ],
                     ));
-=======
-                  title: const Text("Enter OTP"),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextField(
-                        controller: _codecontroller,
-                      )
-                    ],
-                  ),
-                  actions: [
-                    ElevatedButton(
-                        onPressed: () {
-                          FirebaseAuth auth = FirebaseAuth.instance;
-                          smscode = _codecontroller.text;
-                          PhoneAuthCredential _credential =
-                          PhoneAuthProvider.credential(
-                              verificationId: verificationId,
-                              smsCode: smscode);
-                          auth
-                              .signInWithCredential(_credential)
-                              .then((result) {
-                            if (result != null) {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const StartingPage()));
-                            }
-                          }).catchError((e) {
-                            print(e);
-                          });
-                        },
-                        child: const Text("Done"))
-                  ],
-                ));
->>>>>>> dev-rakshit
           },
           codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = verificationId;
           },
           timeout: const Duration(seconds: 45));
-<<<<<<< HEAD
     } catch (e) {
       print('Failed to login with mobile number');
     }
-=======
-    } catch (e) {}
->>>>>>> dev-rakshit
   }
 
   @override
@@ -173,26 +115,15 @@ class _HomeState extends State<Home> {
                     child: Image.asset('assets/icon/phoneAuth.png'),
                   ),
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 64),
-                    child: Text(
-                      "You'll receive a 6 digit code to verify next.",
-                    ),
-<<<<<<< HEAD
-                  ),
-                ],
-=======
-                    const Padding(
                       padding:
-                      EdgeInsets.symmetric(vertical: 14, horizontal: 64),
+                          EdgeInsets.symmetric(vertical: 14, horizontal: 64),
                       child: Text(
                         "You'll receive a 6 digit code to verify next.",
-                      ),
-                    ),
-                  ],
-                ),
->>>>>>> dev-rakshit
+                      )),
+                ],
               ),
             ),
+            // ),
             Container(
               height: MediaQuery.of(context).size.height * 0.13,
               decoration: const BoxDecoration(
@@ -225,16 +156,10 @@ class _HomeState extends State<Home> {
                           Text(
                             phoneNumber,
                             style: const TextStyle(
-<<<<<<< HEAD
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-=======
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black
+                              color: Colors.black,
                             ),
->>>>>>> dev-rakshit
                           ),
                         ],
                       ),
@@ -251,18 +176,11 @@ class _HomeState extends State<Home> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-<<<<<<< HEAD
-                              color: Colors.blueAccent,
-                              borderRadius: BorderRadius.circular(25)),
-=======
                             color: Colors.blueAccent,
-                            borderRadius: BorderRadius.circular(25)
+                            borderRadius: BorderRadius.circular(25),
                           ),
->>>>>>> dev-rakshit
                           child: const Center(
-                            child: Text(
-                              "Continue",
-                            ),
+                            child: Text("Continue"),
                           ),
                         ),
                       ),

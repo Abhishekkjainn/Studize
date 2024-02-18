@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:studize/main.dart';
 import 'package:studize/screens/authorisation/phone_authentication/home.dart';
 import 'package:studize/screens/authorisation/reset_password.dart';
-import 'package:studize/screens/main_container.dart';
-import 'package:studize/widgets/app_bar.dart';
 import 'package:studize/widgets/google_firebase.dart';
 import 'package:studize/widgets/reusable_widgets.dart';
 import 'dart:developer' as dartdev show log;
 import 'sign_up.dart';
-
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -21,7 +18,6 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,18 +59,28 @@ class _SignInScreenState extends State<SignInScreen> {
                     dartdev.log("Error ${error.toString()}");
                   });
                 }),
-                const SizedBox(height: 5,),
-                ElevatedButton(onPressed: () async {
-                  await FirebaseServices().signInWithGoogle();
-                }, child: const Text('Login with Google')),
-                const SizedBox(height:5,),
-                ElevatedButton(onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Home()));
-                }, child: const Text('Continue with Phone')),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 5,
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      await FirebaseServices().signInWithGoogle();
+                    },
+                    child: const Text('Login with Google')),
+                const SizedBox(
+                  height: 5,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Home()));
+                    },
+                    child: const Text('Continue with Phone')),
+                const SizedBox(
+                  height: 20,
+                ),
                 signUpOption(),
               ],
             ),
@@ -83,7 +89,6 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-
 
   Row signUpOption() {
     return Row(
