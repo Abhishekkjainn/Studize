@@ -10,32 +10,29 @@ class SubjectsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return FutureBuilder(
         future: _subjectListFuture,
         builder: (BuildContext context, AsyncSnapshot<List<Subject>> snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
               List<Subject> subjectList = snapshot.data!;
-              print(subjectList);
-              return ListView(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      itemCount: subjectList.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: screenWidth > 650 ? 3 : 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                      ),
-                      itemBuilder: (context, index) =>
-                          _buildSubject(context, subjectList[index]),
-                    ),
+              print('Building SubjectsGrid, given subjectList:$subjectList');
+              return Container(
+                padding: const EdgeInsets.all(15),
+                height: 150,
+                width: 600,
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  itemCount: subjectList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    // crossAxisCount: screenWidth > 650 ? 3 : 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
-                ],
+                  itemBuilder: (context, index) =>
+                      _buildSubjectCard(context, subjectList[index]),
+                ),
               );
             case ConnectionState.waiting:
             case ConnectionState.active:
@@ -51,7 +48,7 @@ class SubjectsGrid extends StatelessWidget {
         });
   }
 
-  Widget _buildSubject(BuildContext context, Subject subject) {
+  Widget _buildSubjectCard(BuildContext context, Subject subject) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -69,18 +66,23 @@ class SubjectsGrid extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              subject.iconAssetPath,
-              width: 35,
-              height: 35,
-            ),
             const SizedBox(height: 5),
-            Text(
-              subject.name,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: [
+                Image.asset(
+                  subject.iconAssetPath,
+                  width: 20,
+                  height: 20,
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  subject.name.substring(0, 4),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             Row(
@@ -91,7 +93,7 @@ class SubjectsGrid extends StatelessWidget {
                 //   '${subject.getNumTasksDone()} done',
                 //   Colors.black,
                 // ),
-                // const SizedBox(width: 15),
+                // const SizedBox(width: 5),
                 _buildTaskStatus(
                   Colors.black,
                   subject.color,

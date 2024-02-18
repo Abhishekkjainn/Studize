@@ -10,6 +10,7 @@ class Task {
   DateTime timeEnd;
   Color color;
   bool isCompleted;
+  String subjectName; // unique identifier for the parent subject
 
   Task({
     required this.id,
@@ -18,6 +19,7 @@ class Task {
     required this.timeStart,
     required this.timeEnd,
     required this.color,
+    required this.subjectName,
   }) : isCompleted = false;
 
   Task.fromJson(Map<String, dynamic> json)
@@ -28,7 +30,8 @@ class Task {
             DateTime.fromMillisecondsSinceEpoch(json['timeStart'] as int),
         timeEnd = DateTime.fromMillisecondsSinceEpoch(json['timeEnd'] as int),
         color = Color(json['color_value'] as int),
-        isCompleted = (json['isCompleted_int'] as int) == 1;
+        isCompleted = (json['isCompleted_int'] as int) == 1,
+        subjectName = json['subjectName'] as String;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -38,6 +41,7 @@ class Task {
         'timeEnd': timeEnd.millisecondsSinceEpoch,
         'color_value': color.value,
         'isCompleted_int': (isCompleted ? 1 : 0),
+        'subjectName': subjectName,
       };
 }
 

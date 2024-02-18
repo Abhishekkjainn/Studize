@@ -22,6 +22,7 @@ class _MainAppBarState extends State<MainAppBar> {
     return AppBar(
       // backgroundColor: Colors.white,
       elevation: 0,
+      scrolledUnderElevation: 0,
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

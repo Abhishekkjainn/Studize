@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studize/screens/info/syllabus_view.dart';
+import 'package:studize/services/syllabus/syllabus_service.dart';
 
 class MainInfoView extends StatelessWidget {
   const MainInfoView({super.key});
@@ -8,47 +9,53 @@ class MainInfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+      child: ListView(
         children: [
-          const BigCard(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-              ),
-              child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 16),
-                        child: Text(
-                          'Syllabus',
-                          style: theme.textTheme.headlineMedium,
-                        ),
-                      ),
-                      ListView(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            child: const SyllabusSubjectsList(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )),
+          const SizedBox(height: 50),
+          const Center(child: _TimeRemainingCard()),
+          const SizedBox(height: 50),
+          const Center(child: _SyllabusProgressIndicator()),
+          const SizedBox(height: 50),
+          Text(
+            'Syllabus',
+            style: theme.textTheme.headlineMedium,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 10),
+          const SyllabusSubjectsList(),
+          const SizedBox(height: 50),
+        ],
+      ),
+    );
+  }
+}
+
+class _SyllabusProgressIndicator extends StatelessWidget {
+  const _SyllabusProgressIndicator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final int tasksDone = SyllabusService.totalTasksDone;
+    final int totalTasks = SyllabusService.totalTasks;
+    final double completedFractionOfSyllabus =
+        tasksDone.toDouble() / totalTasks;
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          Text(
+            'Completed Syllabus: ${(completedFractionOfSyllabus * 100).toStringAsFixed(1)}%\n($tasksDone/$totalTasks)',
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 100,
+            width: 100,
+            child: CircularProgressIndicator(
+              value: completedFractionOfSyllabus,
+              strokeWidth: 20,
+              color: Colors.green.withOpacity(0.7),
+              backgroundColor: Colors.green.withOpacity(0.1),
             ),
           ),
         ],
@@ -57,10 +64,8 @@ class MainInfoView extends StatelessWidget {
   }
 }
 
-class BigCard extends StatelessWidget {
-  const BigCard({
-    super.key,
-  });
+class _TimeRemainingCard extends StatelessWidget {
+  const _TimeRemainingCard();
 
   @override
   Widget build(BuildContext context) {
@@ -99,30 +104,41 @@ class SyllabusSubjectsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List subjects = syllabusGetListOfSubjects();
-    return ListView.builder(
-      itemBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SyllabusView(
-                          subject: subjects[index],
-                        )));
-          },
-          child: ListTile(
-            title: Text(subjects[index]),
-          ),
-        ),
-      ),
-      itemCount: subjects.length,
+    return Column(
+      children: [
+        for (final subject in subjects)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 40),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SyllabusView(
+                              subject: subject,
+                            )));
+              },
+              child: SizedBox(
+                width: 200,
+                child: ListTile(
+                  title: Text(
+                    subject,
+                    textAlign: TextAlign.center,
+                  ),
+                  titleAlignment: ListTileTitleAlignment.center,
+                ),
+              ),
+            ),
+          )
+      ],
     );
   }
 }
 
+// TODO: move these functions to SyllabusService
 List syllabusGetListOfSubjects() {
   var subjects = [];
+  final syllabus = SyllabusService.getSyllabus();
   for (final subject in syllabus.keys) {
     subjects.add(subject);
   }
@@ -130,51 +146,13 @@ List syllabusGetListOfSubjects() {
 }
 
 List syllabusGetListOfChapters({required String subject}) {
+  final syllabus = SyllabusService.getSyllabus();
   if (!syllabus.containsKey(subject)) {
     return [];
   }
-  var chapters = [];
+  List<String> chapters = [];
   for (final chapter in syllabus[subject]!.keys) {
     chapters.add(chapter);
   }
   return chapters;
 }
-
-const syllabus = {
-  'Mathematics': {
-    'Sets, Relations and Functions': [
-      'Sets and their representation',
-      'Union',
-      'Power Set',
-      'Intersection and Complements of Sets',
-    ],
-    'Complex Numbers and Quadratic Equations': [
-      'Complex Numbers as ordered pairs of reals',
-      'Representation in the form a+ib',
-      'Argand Plane',
-    ],
-  },
-  'Physics': {
-    'Physics and Measurement': [
-      'Physics Technology and Society',
-      'SI Units',
-    ],
-    'Kinematics': [
-      'Frame of reference',
-      'Motion in a straight line',
-      'Uniform and Non Uniform Motion',
-    ],
-  },
-  'Chemistry': {
-    'Some basic concepts in chemistry': [
-      'Matter and it\'s nature',
-      'Dalton\'s Atomic Theory',
-      'Concept of atom',
-    ],
-    'States of Matter': [
-      'Gas Laws',
-      'Boyle\'s Law',
-      'Avogadro\'s Law',
-    ],
-  }
-};

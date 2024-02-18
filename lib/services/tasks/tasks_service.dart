@@ -7,9 +7,11 @@ import 'package:studize/services/tasks/tasks_classes.dart';
 import 'package:studize/services/tasks/tasks_exceptions.dart';
 
 class TasksService {
+  // TODO: implement caching
   static final Future<SharedPreferences> _prefs =
       SharedPreferences.getInstance();
 
+  /// returns a list of all subject objects currently stored
   static Future<List<Subject>> getSubjectList() async {
     final prefs = await _prefs;
     List<String> subjectJsonList =
@@ -148,7 +150,8 @@ class TasksService {
   }
 
   /// Creates new task for the subject specified using [subjectName].
-  static Future<void> createTask({
+  /// Returns taskId of the created task
+  static Future<int> createTask({
     required String subjectName,
     required String title,
     required String description,
@@ -166,10 +169,12 @@ class TasksService {
       timeStart: timeStart,
       timeEnd: timeEnd,
       color: color,
+      subjectName: subjectName,
     );
     subjectList[subjectIndex].taskList.add(task);
     subjectList[subjectIndex].numTasksLeft++;
     await _setSubjectList(subjectList: subjectList);
+    return task.id;
   }
 
   static Future<List<Task>> getAllTasks({required String subjectName}) async {
@@ -289,5 +294,29 @@ class TasksService {
     // If the loop completes without finding the specified id, then throw
     // exception
     throw TaskNotFoundException();
+  }
+
+  /// returns a list of all tasks for the given time period, that are inside
+  /// any of the given subjects. if an null (! and not an empty list) is given
+  /// then tasks from all subjects are returned
+  static Future<List<Task>> getFilteredTasks({
+    required DateTimeRange dateTimeRange,
+    List<String>? allowedSubjecstNameList,
+  }) async {
+    final List<Subject> subjectList = await getSubjectList();
+    List<Task> filteredTaskList = [];
+    for (final Subject subject in subjectList) {
+      if (allowedSubjecstNameList == null ||
+          allowedSubjecstNameList
+              .any((subjectName) => (subjectName == subject.name))) {
+        for (final Task task in subject.taskList) {
+          if (task.timeEnd.isAfter(dateTimeRange.start) ||
+              task.timeStart.isBefore(dateTimeRange.end)) {
+            filteredTaskList.add(task);
+          }
+        }
+      }
+    }
+    return filteredTaskList;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studize/screens/detail/detail.dart';
 import 'package:studize/widgets/task.dart';
 
 class MainTasksView extends StatelessWidget {
@@ -9,18 +10,23 @@ class MainTasksView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SubjectsGrid(),
         Container(
           padding: const EdgeInsets.all(15),
           child: const Text(
-            'Tasks',
+            'Upcoming Tasks',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        Expanded(
-          child: SubjectsGrid(),
+        const Expanded(
+          flex: 2,
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: TodayTasksView(),
+          ),
         )
       ],
     );

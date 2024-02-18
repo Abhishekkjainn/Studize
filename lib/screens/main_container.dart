@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studize/screens/detail/new_task_view.dart';
 import 'package:studize/screens/info/main_info_view.dart';
 import 'package:studize/screens/aiMentor/main.dart';
 import 'package:studize/screens/main_tasks.dart';
@@ -53,64 +54,33 @@ class _MainContainerState extends State<MainContainer> {
 
     return Scaffold(
       appBar: MainAppBar(),
-      body: LayoutBuilder(builder: (context, constraints) {
-        if (constraints.maxWidth <= 0.8 * constraints.maxHeight) {
-          // Use a mobile friendly layout with BottomNavigationBar for narrow screens
-          return Column(
-            children: [
-              Expanded(child: mainArea),
-              SafeArea(
-                child: BottomNavigationBar(
-                  showUnselectedLabels: false,
-                  type: BottomNavigationBarType.fixed,
-                  items: List.generate(
-                    navDestinationLabels.length,
-                    (index) => BottomNavigationBarItem(
-                      icon: Icon(navDestinationIcons[index]),
-                      activeIcon: Icon(navDestinationIconsSelected[index]),
-                      label: navDestinationLabels[index],
-                    ),
-                  ),
-                  currentIndex: selectedIndex,
-                  onTap: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                ),
-              )
-            ],
-          );
-        } else {
-          return Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  labelType: NavigationRailLabelType.selected,
-
-                  groupAlignment: 0,
-                  // extended: constraints.maxWidth >= 800,
-                  destinations: List.generate(
-                    navDestinationLabels.length,
-                    (index) => NavigationRailDestination(
-                      icon: Icon(navDestinationIcons[index]),
-                      selectedIcon: Icon(navDestinationIconsSelected[index]),
-                      label: Text(navDestinationLabels[index]),
-                    ),
-                  ),
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                ),
-              ),
-              Expanded(child: mainArea),
-            ],
-          );
-        }
-      }),
+      body: mainArea,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const NewTaskCategoryPicker(),
+        )),
+        label: const Text('New Task'),
+        icon: const Icon(Icons.add_task),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        items: List.generate(
+          navDestinationLabels.length,
+          (index) => BottomNavigationBarItem(
+            icon: Icon(navDestinationIcons[index]),
+            activeIcon: Icon(navDestinationIconsSelected[index]),
+            label: navDestinationLabels[index],
+          ),
+        ),
+        currentIndex: selectedIndex,
+        onTap: (value) {
+          setState(() {
+            selectedIndex = value;
+          });
+        },
+      ),
     );
   }
 }

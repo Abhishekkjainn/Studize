@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studize/firebase_options.dart';
 import 'package:studize/screens/authorisation/sign_in.dart';
 import 'package:studize/screens/main_container.dart';
+import 'package:studize/services/syllabus/syllabus_service.dart';
 import 'package:studize/services/tasks/tasks_init_functions.dart';
 import 'package:studize/styles.dart';
 import 'package:studize/constants/globals.dart';
@@ -20,6 +21,7 @@ int year = todayDate.year;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeSujbects(targetCourse: 'JEE');
+  SyllabusService.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
   // userUID = FirebaseAuth.instance.currentUser?.uid;
