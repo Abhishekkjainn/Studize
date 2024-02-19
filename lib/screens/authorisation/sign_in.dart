@@ -65,8 +65,13 @@ class _SignInScreenState extends State<SignInScreen> {
                 ElevatedButton(
                     onPressed: () async {
                       await FirebaseServices().signInWithGoogle();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StartingPage()));
                     },
                     child: const Text('Login with Google')),
+
                 const SizedBox(
                   height: 5,
                 ),

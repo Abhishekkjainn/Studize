@@ -1,26 +1,51 @@
 {
   "project_info": {
-    "project_number": "506661540303",
-    "project_id": "studize-9fea1",
-    "storage_bucket": "studize-9fea1.appspot.com"
+    "project_number": "101116459837",
+    "project_id": "studizetest",
+    "storage_bucket": "studizetest.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:506661540303:android:f413c74c17a5e3946fc2ba",
+        "mobilesdk_app_id": "1:101116459837:android:3e3c6e798ea26210fde354",
         "android_client_info": {
           "package_name": "com.InnovAppWorks.Studize"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "101116459837-gsnel6tv2kifv430p6emkol3l18b058b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.InnovAppWorks.Studize",
+            "certificate_hash": "d6b1ace6ad20e0e9633a15b706384f6cb7a1e9b0"
+          }
+        },
+        {
+          "client_id": "101116459837-j7enkjmtppa1bturmib5121u9rmof79o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCAKTC7t4gg7Tj-Dq7QZPl9c8Jcma2AdEk"
+          "current_key": "AIzaSyCOlYOt2JbxKRZK2VK3EkJtuGEZw7G8HQM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "101116459837-j7enkjmtppa1bturmib5121u9rmof79o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "101116459837-1p6n8c1vba1o6usj8j38shcf60or4q69.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.InnovAppWorks.studize"
+              }
+            }
+          ]
         }
       }
     }
