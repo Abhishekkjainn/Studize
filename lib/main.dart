@@ -1,9 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studize/constants/splashController.dart';
 import 'package:studize/firebase_options.dart';
 import 'package:studize/screens/authorisation/sign_in.dart';
 import 'package:studize/screens/main_container.dart';
@@ -11,6 +15,8 @@ import 'package:studize/services/syllabus/syllabus_service.dart';
 import 'package:studize/services/tasks/tasks_init_functions.dart';
 import 'package:studize/styles.dart';
 import 'package:studize/constants/globals.dart';
+import 'package:lottie/lottie.dart';
+import 'onBoardingScreens/onB1.dart';
 
 DateTime selectedDate = DateTime(2024, 04, 15);
 DateTime todayDate = DateTime.now();
@@ -21,23 +27,26 @@ int year = todayDate.year;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeSujbects(targetCourse: 'JEE');
+  await Firebase.initializeApp();
   SyllabusService.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
+  await GetStorage.init();
+
   // userUID = FirebaseAuth.instance.currentUser?.uid;
   runApp(MyApp(options: options));
 }
 
 class MyApp extends StatefulWidget {
   final int options;
-
-  const MyApp({Key? key, required this.options}) : super(key: key);
-
+  SplashController splash = Get.put(SplashController());
+  MyApp({Key? key, required this.options}) : super(key: key);
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  SplashController splash = Get.put(SplashController());
   checkIfLogin() async {
     auth.authStateChanges().listen((User? user) {
       if (user != null && mounted) {
@@ -50,7 +59,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    checkIfLogin(); // TODO: implement initState
+    checkIfLogin();
+    // splash.SetSplash(null);
+    // TODO: implement initState
     super.initState();
   }
 
@@ -83,12 +94,12 @@ class _MyAppState extends State<MyApp> {
             // TODO: show loading screen.
             return const Placeholder();
           case ConnectionState.done:
-            return MaterialApp(
+            return GetMaterialApp(
               debugShowCheckedModeBanner: false,
               theme: mainAppTheme,
               darkTheme: mainAppThemeDark,
               themeMode: ThemeMode.system,
-              home: initialScreen,
+              home: SplashScreen(),
             );
           case ConnectionState.none:
           default:
@@ -97,6 +108,95 @@ class _MyAppState extends State<MyApp> {
         }
       },
     );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _slideAnimation;
+  late Animation<double> _opacityAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _slideAnimation = Tween<double>(begin: -100, end: 0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+    _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+    _animationController.forward();
+    navigateToMain();
+  }
+
+  void navigateToMain() async {
+    await Future.delayed(Duration(milliseconds: 5000));
+    Navigator.pushReplacement(context, MaterialPageRoute(
+      builder: (context) {
+        return OnBoarding1();
+      },
+    ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Color.fromARGB(255, 1, 20, 36),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Lottie.asset('assets/images/studizelogo.json',
+                width: 100, height: 100, repeat: false),
+            SizedBox(
+              width: 20,
+            ),
+            AnimatedBuilder(
+                animation: _slideAnimation,
+                builder: (context, child) {
+                  return Transform.translate(
+                    offset: Offset(_slideAnimation.value, 0),
+                    child: child,
+                  );
+                },
+                child: AnimatedBuilder(
+                  animation: _opacityAnimation,
+                  builder: (context, child) {
+                    return Text(
+                      'Studize',
+                      style: TextStyle(
+                          color: const Color.fromARGB(255, 222, 240, 255)
+                              .withOpacity(_opacityAnimation.value),
+                          fontSize: 26 * (_opacityAnimation.value),
+                          fontWeight: FontWeight.w600),
+                    );
+                  },
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }
 

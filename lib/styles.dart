@@ -7,12 +7,12 @@ final TextTheme mainTextTheme = TextTheme(
     fontWeight: FontWeight.bold,
   ),
   // ···
-  titleLarge: GoogleFonts.oswald(
+  titleLarge: GoogleFonts.poppins(
     fontSize: 30,
     // fontStyle: FontStyle.italic,
   ),
-  bodyMedium: GoogleFonts.merriweather(),
-  displaySmall: GoogleFonts.pacifico(),
+  bodyMedium: GoogleFonts.poppins(),
+  displaySmall: GoogleFonts.poppins(),
 );
 
 final ThemeData mainAppTheme = ThemeData(
