@@ -20,7 +20,7 @@ class _MainContainerState extends State<MainContainer> {
   // ignore: non_constant_identifier_names
   final List SelectedIndexPage = [
     const MainTasksView(),
-    const MainInfoView(),
+    const HomeSyllabus(),
     const GptMain(),
     const Profile()
   ];

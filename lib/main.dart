@@ -28,7 +28,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeSujbects(targetCourse: 'JEE');
   await Firebase.initializeApp();
-  SyllabusService.init();
+  // SyllabusService.init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int options = prefs.getInt('options') ?? 2;
   await GetStorage.init();
